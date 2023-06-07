@@ -1,7 +1,7 @@
-import { ProductManager } from '../build/ProductManagerFs.js';
 import { ProductService } from '../services/product.service.js';
 
 export const connectSockets = (server) => {
+
    const productService = new ProductService();
 
    const msgs = [];
@@ -15,8 +15,8 @@ export const connectSockets = (server) => {
          server.emit('products', products);
       });
 
-      socket.on('delete-Product', async (productId) => {
-         await productService.deleteProduct(productId);
+      socket.on('delete-Product', async (pid) => {
+         await productService.deleteProduct(pid);
          const products = await productService.getProducts();
          server.emit('products', products);
       });

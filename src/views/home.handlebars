@@ -3,19 +3,21 @@
       {{#each products}}
          <li>
             <strong>Title:</strong>
-            {{title}}<br />
+            {{this.title}}<br />
             <strong>Description:</strong>
-            {{description}}<br />
+            {{this.description}}<br />
             <strong>Code:</strong>
-            {{code}}<br />
+            {{this.code}}<br />
             <strong>Price:</strong>
-            {{price}}<br />
+            {{this.price}}<br />
             <strong>Stock:</strong>
-            {{stock}}<br />
+            {{this.stock}}<br />
             <strong>Category:</strong>
-            {{category}}<br />
+            {{this.category}}<br />
             <strong>Thumbnails:</strong>
-            {{thumbnails}}<br />
+            {{this.thumbnails}}<br />
+            <strong>Id:</strong>
+            {{this._id}}
          </li>
          <br />
       {{/each}}

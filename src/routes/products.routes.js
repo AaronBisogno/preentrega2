@@ -15,12 +15,12 @@ productsRouter.get('/', async (req, res) => {
          {
             status: 'success',
             msg: 'Products:', 
-            result: result 
+            data: result 
          });
    } else return res.status(200).send({
       status: 'success',
       msg: 'Products:', 
-      result: products
+      data: products
    });
 });
 
@@ -33,7 +33,7 @@ productsRouter.get('/:pid', async (req, res) => {
          { 
             status: 'success',
             msg: 'Products:', 
-            result: result 
+            data: result 
          });
    } catch {
       res.status(404).send(
@@ -58,7 +58,7 @@ productsRouter.post('/', async (req, res) => {
       res.status(404).send(
          { 
             status: 'error', 
-            msg: 'Product info is missing.' 
+            msg: 'Product info is missing.', 
          });
    }
    
@@ -91,7 +91,6 @@ productsRouter.delete('/:pid', async (req, res) => {
          { 
             status: 'error', 
             msg: 'Product not found.',
-            data: product 
          });
       }
 });

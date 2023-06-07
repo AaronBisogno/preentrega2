@@ -3,23 +3,24 @@
       {{#each products}}
          <li>
             <strong>Title:</strong>
-            {{title}}<br />
+            {{title}}<br>
             <strong>Description:</strong>
-            {{description}}<br />
+            {{description}}<br>
             <strong>Code:</strong>
-            {{code}}<br />
+            {{code}}<br>
             <strong>Price:</strong>
-            {{price}}<br />
-            <strong>Stock:</strong>
-            {{stock}}<br />
+            {{price}}<br>
+            <strong>Stock:</strong> 
+            {{stock}}<br>
             <strong>Category:</strong>
-            {{category}}<br />
+            {{category}}<br>
             <strong>Thumbnails:</strong>
-            {{thumbnails}}<br />
+            {{thumbnails}}<br>
             <strong>Id:</strong>
-            {{id}}<br />
-            <button onclick='deleteProduct({{this.id}})'>Delete Product</button>
-         </li><br />
+            {{_id}}<br>
+            <br>
+            <button onclick="deleteProduct('{{_id}}')">Delete Product</button>
+         </li>
       {{/each}}
    </ul>
 </div>

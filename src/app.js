@@ -2,7 +2,7 @@ import express from 'express';
 import handlebars from 'express-handlebars';
 import { __dirname, previousDirectory } from './utils/path.js';
 import { connectMongo } from './utils/mongoose.js';
-import { middlewares } from './utils/middlewares.js';
+import { middlewares } from './middlewares/middlewares.js';
 import { connectSockets } from './utils/sockets.js';
 import { Server } from 'socket.io';
 

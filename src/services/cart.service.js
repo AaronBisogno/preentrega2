@@ -7,24 +7,24 @@ export class CartService {
    }
 
    async addProductToCart(cid, pid) {
-      const cart = await CartModel.findOne({ _id: cid });
-      const product = await ProductModel.findOne({ _id: pid });
+      const cart = await CartModel.findOne({ _id: cid })
+      const product = await ProductModel.findOne({ _id: pid })
       if (product) {
          cart.products.push({ product: product });
          await cart.save();
-         return cart;
+         return `Cart Id: ${cart._id}, Products: ${JSON.stringify(cart.products)}`;
       } else {
          return `Product id does not exist! Please insert a valid id.`;
       }
    }
 
    async getCarts() {
-      const carts = await CartModel.find({});
+      const carts = await CartModel.find({}).lean();
       return carts;
    }
 
    async getCart(cid) {
-      const cart = await CartModel.findOne({ _id: cid });
+      const cart = await CartModel.findOne({ _id: cid }).lean();
       return cart.products;
    }
 

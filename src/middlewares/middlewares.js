@@ -2,7 +2,7 @@ import { cartRouter } from '../routes/carts.routes.js';
 import { productsRouter } from '../routes/products.routes.js';
 import { viewsRouter } from '../routes/views.routes.js';
 import { usersRouter } from '../routes/users.routes.js';
-import { __dirname, previousDirectory } from './path.js';
+import { __dirname, previousDirectory } from '../utils/path.js';
 import express from 'express';
 
 export const middlewares = (app) => {
