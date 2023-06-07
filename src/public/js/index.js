@@ -14,8 +14,8 @@ socket.on('products', (products) => {
             <strong>Stock:</strong> ${product.stock}<br>
             <strong>Category:</strong> ${product.category}<br>
             <strong>Thumbnails:</strong> ${product.thumbnails}<br>
-            <strong>Id:</strong> ${product.id}<br>
-            <button onclick="deleteProduct(${product.id})">Delete Product</button>
+            <strong>Id:</strong> ${product._id}<br>
+            <button onclick="deleteProduct(${product._id})">Delete Product</button>
         `;
 
       productList.appendChild(listItem);

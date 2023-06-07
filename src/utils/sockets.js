@@ -1,8 +1,8 @@
 import { ProductManager } from '../build/ProductManagerFs.js';
-import { __dirname, previousDirectory } from './path.js';
+import { ProductService } from '../services/product.service.js';
 
 export const connectSockets = (server) => {
-   const productManager = new ProductManager(`${previousDirectory}/dao/products`);
+   const productService = new ProductService();
 
    const msgs = [];
 
@@ -10,14 +10,14 @@ export const connectSockets = (server) => {
       console.log(`New client connected ${socket.id}`);
 
       socket.on('new-Product', async (newProduct) => {
-         await productManager.addProduct(newProduct);
-         const products = await productManager.getProducts();
+         await productService.createProduct(newProduct);
+         const products = await productService.getProducts();
          server.emit('products', products);
       });
 
       socket.on('delete-Product', async (productId) => {
-         await productManager.deleteProduct(productId);
-         const products = await productManager.getProducts();
+         await productService.deleteProduct(productId);
+         const products = await productService.getProducts();
          server.emit('products', products);
       });
 

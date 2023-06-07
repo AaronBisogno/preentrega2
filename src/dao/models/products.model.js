@@ -8,6 +8,7 @@ const schema = new Schema({
    stock: { type: Number, required: true, max: 100 },
    category: { type: String, required: true, max: 100 },
    thumbnails: { type: String, required: false, max: 100 },
-});
+},
+{ versionKey: false });
 
 export const ProductModel = model('products', schema);

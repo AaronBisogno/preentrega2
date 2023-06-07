@@ -46,7 +46,22 @@ productsRouter.get('/:pid', async (req, res) => {
 
 productsRouter.post('/', async (req, res) => {
    const newProduct = req.body;
-   const result = await productManager.addProduct(newProduct);
+   try {
+      const result = await productService.createProduct(newProduct);
+      res.status(200).send(
+         { 
+            status: 'success',
+            msg: 'Product created successfully!', 
+            data: result 
+         });
+   } catch {
+      res.status(404).send(
+         { 
+            status: 'error', 
+            msg: 'Product info is missing.' 
+         });
+   }
+   
    res.send({ result });
 });
 
@@ -62,7 +77,21 @@ productsRouter.put('/:pid', async (req, res) => {
 });
 
 productsRouter.delete('/:pid', async (req, res) => {
-   const productId = parseInt(req.params.pid);
-   const product = await productManager.deleteProduct(productId);
-   res.status(200).send({ product });
+   const pid = req.params.pid;
+   try {
+      const product = await productService.deleteProduct(pid);
+      res.status(200).send(
+         { 
+            status: 'success',
+            msg: 'Product deleted.', 
+            date: product
+         });
+   } catch {
+      res.status(404).send(
+         { 
+            status: 'error', 
+            msg: 'Product not found.',
+            data: product 
+         });
+      }
 });

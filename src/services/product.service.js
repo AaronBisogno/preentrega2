@@ -8,15 +8,20 @@ export class ProductService {
             throw new Error('Error, please enter a valid info!');
         }
     }
-    async createProduct(product){
+    async createProduct(product) {
         this.validateProduct(product);
-        return await ProductModel.create({product})
-    }
+        return await ProductModel.create(product);
+      }
     async getProduct(pid){
         return await ProductModel.findOne({_id: pid});
     }
 
     async getProducts(){
         return await ProductModel.find({})
+    }
+
+    async deleteProduct(pid){
+        const deleted = await ProductModel.deleteOne({_id: pid});
+        return `Product ${pid} was successfully deleted!`
     }
 }
