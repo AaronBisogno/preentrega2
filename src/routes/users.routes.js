@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { UserModel } from '../dao/models/user.model.js';
 import { UserService } from '../services/user.service.js';
 
 export const usersRouter = Router();
@@ -17,7 +16,7 @@ usersRouter.get('/', async (req, res) => {
    } catch (e) {
       return res.status(500).json({
          status: 'error',
-         msg: 'Something went wrong!'
+         msg: 'Something went wrong!',
       });
    }
 });
@@ -35,7 +34,7 @@ usersRouter.post('/', async (req, res) => {
       console.log(e);
       return res.status(500).json({
          status: 'error',
-         msg: 'Something went wrong!'
+         msg: 'Something went wrong!',
       });
    }
 });
@@ -53,7 +52,7 @@ usersRouter.put('/:id', async (req, res) => {
    } catch (e) {
       return res.status(500).json({
          status: 'error',
-         msg: 'Something went wrong!'
+         msg: 'Something went wrong!',
       });
    }
 });
@@ -71,7 +70,7 @@ usersRouter.delete('/:id', async (req, res) => {
       console.log(e);
       return res.status(500).json({
          status: 'error',
-         msg: 'Something went wrong!'
+         msg: 'Something went wrong!',
       });
    }
 });

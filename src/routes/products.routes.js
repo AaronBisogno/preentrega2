@@ -1,27 +1,47 @@
 import express from 'express';
-import { __dirname, previousDirectory } from '../utils/path.js';
-import { ProductManager } from '../build/ProductManagerFs.js';
+import { ProductService } from '../services/product.service.js';
+
+const productService = new ProductService(); 
 
 export const productsRouter = express.Router();
-export const productManager = new ProductManager(`${previousDirectory}/dao/products`);
 
 productsRouter.get('/', async (req, res) => {
    const countLimit = req.query.limit;
-   const products = await productManager.getProducts();
+   const products = await productService.getProducts();
    if (countLimit) {
-      const limit = parseInt(countLimit);
+      const limit = countLimit;
       const result = products.slice(0, limit);
-      return res.status(200).send({ result });
-   } else return res.status(200).send({ products });
+      return res.status(200).send(
+         {
+            status: 'success',
+            msg: 'Products:', 
+            result: result 
+         });
+   } else return res.status(200).send({
+      status: 'success',
+      msg: 'Products:', 
+      result: products
+   });
 });
 
 productsRouter.get('/:pid', async (req, res) => {
    const productId = req.params.pid;
-   if (productId) {
-      const id = parseInt(productId);
-      const result = await productManager.getProductById(id);
-      res.status(200).send({ result });
-   } else res.status(404).send({ status: 'error', msg: 'Product not found.' });
+   try {
+      const pid = productId
+      const result = await productService.getProduct(pid);
+      res.status(200).send(
+         { 
+            status: 'success',
+            msg: 'Products:', 
+            result: result 
+         });
+   } catch {
+      res.status(404).send(
+         { 
+            status: 'error', 
+            msg: 'Product not found.' 
+         });
+      }
 });
 
 productsRouter.post('/', async (req, res) => {

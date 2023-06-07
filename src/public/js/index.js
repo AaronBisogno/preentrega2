@@ -44,7 +44,6 @@ productForm.addEventListener('submit', (event) => {
       category: category,
       thumbnails: thumbnails,
    };
-   console.log(newProduct);
 
    socket.emit('new-Product', newProduct);
 
