@@ -1,0 +1,55 @@
+<div>
+   <ul id='productList'>
+      {{#each products}}
+         <li>
+            <strong>Title:</strong>
+            {{title}}<br />
+            <strong>Description:</strong>
+            {{description}}<br />
+            <strong>Code:</strong>
+            {{code}}<br />
+            <strong>Price:</strong>
+            {{price}}<br />
+            <strong>Stock:</strong>
+            {{stock}}<br />
+            <strong>Category:</strong>
+            {{category}}<br />
+            <strong>Thumbnails:</strong>
+            {{thumbnails}}<br />
+            <strong>Id:</strong>
+            {{id}}<br />
+            <button onclick='deleteProduct({{this.id}})'>Delete Product</button>
+         </li><br />
+      {{/each}}
+   </ul>
+</div>
+<div>
+   <form id='productForm'>
+      <label for='title'>Title:</label>
+      <input type='text' id='title' name='title' placeholder='Product title required' required />
+      <br />
+      <label for='description'>Description:</label>
+      <input type='text' id='description' name='description' placeholder='Product description' required />
+      <br />
+      <label for='code'>Code:</label>
+      <input type='text' id='code' name='code' placeholder='Product code' required />
+      <br />
+      <label for='price'>Price:</label>
+      <input type='number' id='price' name='price' min='0' placeholder='Product price' required />
+      <br />
+      <label for='stock'>Stock:</label>
+      <input type='number' id='stock' name='stock' min='0' placeholder='Product stock' required />
+      <br />
+      <label for='category'>Category:</label>
+      <input type='text' id='category' name='category' placeholder='Product category' required />
+      <br />
+      <label for='thumbnails'>Thumbnails:</label>
+      <input type='text' id='thumbnails' name='thumbnails' placeholder='Product image url' />
+      <br />
+      <button class='b-submit' type='submit'>Submit Product</button>
+   </form>
+</div>
+
+<script src='/socket.io/socket.io.js'></script>
+<script src='/js/index.js'></script>
+<link rel='stylesheet' href='/styles/styles.css' />
