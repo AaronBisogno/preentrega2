@@ -2,20 +2,16 @@ import { CartModel } from '../dao/models/carts.model.js';
 import { ProductModel } from '../dao/models/products.model.js';
 
 export class CartService {
-   async createCart() {
+   async create() {
       return await CartModel.create({});
    }
 
    async addProductToCart(cid, pid) {
       const cart = await CartModel.findOne({ _id: cid })
       const product = await ProductModel.findOne({ _id: pid })
-      if (product) {
-         cart.products.push({ product: product });
-         await cart.save();
-         return `Cart Id: ${cart._id}, Products: ${JSON.stringify(cart.products)}`;
-      } else {
-         return `Product id does not exist! Please insert a valid id.`;
-      }
+      cart.products.push( product );
+      await cart.save();
+      return `Cart Id: ${cart._id}, Products: ${JSON.stringify(cart.products)}`;
    }
 
    async getCarts() {
@@ -24,24 +20,28 @@ export class CartService {
    }
 
    async getCart(cid) {
-      const cart = await CartModel.findOne({ _id: cid }).lean();
-      return cart.products;
+      const cart = await CartModel.findOne({ _id: cid }).populate('products.product');
+      return cart;
    }
 
    async removeProductFromCart(cid, pid) {
-      const cart = await CartModel.findOne({ _id: cid });
-      const productIndex = cart.products.findIndex((product) => product._id === pid);
-      if (productIndex !== -1) {
-         cart.products.splice(productIndex, 1);
+      const cart = await CartModel.findOne({ _id: cid})
+      const index = cart.products.findIndex((i) => i._id.equals(pid))
+      if (index === -1){
+         return 'Product id doesnt exist. Please insert a valid id.'
+      } else{
+         cart.products.splice(index, 1);
          await cart.save();
-         return 'Product deleted successfully!';
-      } else {
-         return 'Product id does not exist in the cart!';
+         return `Product ${pid} was successfully removed from Cart ${cid}!`;
       }
    }
 
-   async deleteCart(cid) {
-      const deletedCart = await CartModel.deleteOne({ _id: cid });
-      return `Cart ${cid} was successfully deleted!`;
+   async clear(cid) {
+      await CartModel.findOneAndUpdate(
+         { _id: cid },
+         { $set: { products: [] } },
+         { new: true }
+      )
+      return `Cart ${cid} was successfully cleaned!`;
    }
 }

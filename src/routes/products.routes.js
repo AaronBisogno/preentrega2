@@ -1,27 +1,45 @@
 import express from 'express';
 import { ProductService } from '../services/product.service.js';
+import { ProductModel } from '../dao/models/products.model.js';
 
 const productService = new ProductService(); 
 
 export const productsRouter = express.Router();
 
 productsRouter.get('/', async (req, res) => {
-   const countLimit = req.query.limit;
-   const products = await productService.getProducts();
-   if (countLimit) {
-      const limit = countLimit;
-      const result = products.slice(0, limit);
+   const { limit } = req.query;
+   const { page } = req.query;
+
+   const queryResult = await ProductModel.paginate(
+      {},
+      {limit: limit || 10, page: page || 1}
+   );
+   const { docs, ...rest } = queryResult;
+   const result = docs.map(doc => {
+      return {title: doc.title, description: doc.description, code: doc.code, price: doc.price, stock: doc.stock, category: doc.category, thumbnail: doc.thumbnail, id: doc.id}
+   })
+   try{
       return res.status(200).send(
          {
-            status: 'success',
-            msg: 'Products:', 
-            data: result 
+            status: "success",
+            payload: result, 
+            totalPages: rest.totalPages,
+            prevPage: rest.prevPage,
+            nextPage: rest.nextPage,
+            page: rest.page,
+            hasPrevPage: rest.hasPrevPage,
+            hasNextPage: rest.hasNextPage,
+            prevLink: rest.hasPrevPage ? `http://localhost:8080/api/products?page=${rest.prevPage}`: false,
+            nextLink: rest.hasNextPage ? `http://localhost:8080/api/products?page=${rest.nextPage}`: false,
          });
-   } else return res.status(200).send({
-      status: 'success',
-      msg: 'Products:', 
-      data: products
-   });
+   } catch {
+      return res.status(404).send(
+         {
+            status: 'error',
+            msg: 'Products not found.' 
+         }
+      );
+   }
 });
 
 productsRouter.get('/:pid', async (req, res) => {
@@ -66,14 +84,23 @@ productsRouter.post('/', async (req, res) => {
 });
 
 productsRouter.put('/:pid', async (req, res) => {
-   const productid = parseInt(req.params.pid);
-   const newInfo = req.body;
-   if (newInfo && Object.keys(newInfo).length > 0) {
-      const updatedProduct = await productManager.updateProduct(productid, newInfo);
-      res.status(200).send({ updatedProduct });
-   } else {
-      res.status(400).send({ error: 'Invalid update, info missing.' });
-   }
+   const pid = req.params.pid;
+   const updateData = req.body;
+   try {
+      const product = await productService.updateProduct(pid, updateData);
+      res.status(200).send(
+         { 
+            status: 'success',
+            msg: 'Product updated!.', 
+            date: product
+         });
+   } catch {
+      res.status(404).send(
+         { 
+            status: 'error', 
+            msg: 'Product id doesnt exist! Please enter a valid id.'
+         });
+      }
 });
 
 productsRouter.delete('/:pid', async (req, res) => {

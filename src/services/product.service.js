@@ -20,8 +20,17 @@ export class ProductService {
         return await ProductModel.find({}).lean()
     }
 
+    async updateProduct(pid, updateData){
+        try{
+            return await ProductModel.updateOne({ _id: pid}, {$set: updateData})
+        }
+        catch{
+            throw new Error('Product id doesnt exist! Please enter a valid id.')
+        }
+    }
+
     async deleteProduct(pid){
-        const deleted = await ProductModel.deleteOne({_id: pid});
+        await ProductModel.deleteOne({_id: pid});
         return `Product ${pid} was successfully deleted!`
     }
 }

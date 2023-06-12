@@ -5,34 +5,27 @@ export const cartRouter = express.Router();
 
 const cartService = new CartService();
 
-cartRouter.get('/', async (req, res) => {
-   const countLimit = req.query.limit;
-   const carts = await cartService.getCarts();
+// Get carts: true
 
-   if (countLimit) {
-      const result = carts.slice(0, countLimit);
-      return res.status(200).send({ result });
-   } else {
-      const modifiedCarts = carts.map((cart) => {
-         const modifiedCart = { _id: cart._id.toString(), products: cart.products };
-         return modifiedCart;
-      });
-      return res.status(200).send({
-         status: 'success',
-         msg: 'Carts found:',
-         data: modifiedCarts,
-      });
-   }
+cartRouter.get('/', async (req, res) => {
+   const carts = await cartService.getCarts()
+   return res.status(200).send({
+      status: 'success',
+      msg: 'Carts found',
+      data: carts,
+   });
 });
 
+// Get cart by id: true
+
 cartRouter.get('/:cid', async (req, res) => {
-   const cid = req.params.cid;
+   const { cid } = req.params;
    try {
-      const result = await cartService.getCart(cid);
+      const result = await cartService.getCart(cid)
       res.status(200).send({
          status: 'success',
-         msg: `Cart id: '${cid}' founded:`,
-         data: `Products: ${result}`,
+         msg: `Cart id: '${cid}' founded`,
+         data: `Products: ${JSON.stringify(result.products)}`,
       });
    } catch {
       res.status(404).send({
@@ -41,14 +34,16 @@ cartRouter.get('/:cid', async (req, res) => {
       });
    }
 });
+
+// create a new cart: true
 
 cartRouter.post('/', async (req, res) => {
    try {
-      const result = await cartService.createCart();
+      const result = await cartService.create();
       res.status(200).send({
          status: 'success',
-         msg: `Cart created:`,
-         data: {cartId: result._id, products: result.products}
+         msg: `Cart created`,
+         data: { cartId: result._id, products: result.products }
       });
    } catch {
       res.status(404).send({
@@ -58,33 +53,35 @@ cartRouter.post('/', async (req, res) => {
    }
 });
 
+// add a new product to the cart: true
+
 cartRouter.post('/:cid/product/:pid', async (req, res) => {
-   const cid = req.params.cid;
-   const pid = req.params.pid;
+   const { cid, pid } = req.params;
    try {
       const productAdded = await cartService.addProductToCart(cid, pid);
       res.status(200).send({
          status: 'success',
-         msg: `Product added:`,
-         data: `${JSON.stringify(productAdded)}`
+         msg: `Product added`,
+         data: `${productAdded}`
       });
    } catch {
       res.status(404).send({
          status: 'error',
-         msg: 'Something went wrong!',
+         msg: 'Product id does not exist! Please insert a valid id.',
       });
    }
 });
 
+// Delete product from cart: true
+
 cartRouter.delete('/:cid/product/:pid', async (req, res) => {
-   const cid = req.params.cid;
-   const pid = req.params.pid;
+   const { cid, pid } = req.params;
    try{
       const productRemoved = await cartService.removeProductFromCart(cid, pid);
       res.status(200).send({
          status: 'success',
-         msg: `Product deleted:`,
-         data: `${JSON.stringify(productRemoved)}`
+         msg: `Product deleted`,
+         data: `${productRemoved}`
       });
    } catch{
       res.status(404).send({
@@ -94,14 +91,16 @@ cartRouter.delete('/:cid/product/:pid', async (req, res) => {
    }
 });
 
+// Clear all products: true
+
 cartRouter.delete('/:cid', async (req, res) => {
-   const cid = req.params.cid;
+   const { cid } = req.params;
    try{
-      const deletedCart = await cartService.deleteCart(cid);
+      const cart = await cartService.clear(cid);
       res.status(200).send({
          status: 'success',
-         msg: `Cart deleted`,
-         data: `${deletedCart}`
+         msg: `Cart cleaned`,
+         data: `${cart}`
       });
    } catch {
       res.status(404).send({
