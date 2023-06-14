@@ -40,6 +40,16 @@ viewsRouter.get('/products', async (req, res) => {
    res.render('products', { result, pagination: rest });
 });
 
+viewsRouter.get('/products/:pid', async (req, res) => {
+   try {
+      const { pid } = req.params;
+      const product = await ProductModel.getProduct(pid);
+      res.render('product', {});
+   } catch (error) {
+      throw new Error ('Product doesnt exist!', error)
+   }
+});
+
 viewsRouter.get(`/carts/:cid`, async (req, res) => {
    try{
       const { cid } = req.params;
@@ -49,8 +59,8 @@ viewsRouter.get(`/carts/:cid`, async (req, res) => {
       for (const item of products) {
          result.push(item.product);
       }
-      res.render('carts', { cart, result});
-   } catch {
+      res.render('carts', { cart, result, cid });
+   } catch (error) {
       throw new Error ('Cart doesnt exist!', error)
    }
    

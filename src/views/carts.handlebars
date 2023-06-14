@@ -1,10 +1,11 @@
 <div style="display: flex; flex-direction: column; width: 100vw; align-items: center;">
-    <h1>Cart {{cart.id}}</h1>
+    <h1>Cart</h1>
+    <h2 id="cartId">{{cart.id}}</h2>
     <h4>Products:</h4>
-    <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px; justify-content: center">
+    <div id="myDiv" style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px; justify-content: center">
         {{#each result}}
             <div class="card" style="width: 18rem;">
-                <img src="" class="card-img-top" alt="...">
+                <img src="/img/default.png" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{this.title}}</h5>
                     <p class="card-text">{{this.description}}</p>
@@ -18,12 +19,15 @@
                     <li class="list-group-item"><strong>Quantity:</strong>
                     {{this.quantity}}</li>
                 </ul>
-                <div class="card-body">
-                    <a href="#" class="card-link">Product info</a>
-                    <a href="#" class="card-link">Delete Product</a>
-                    <a href="#" class="card-link">Add product</a>
+                <div class="card-body" style="text-align: center;display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                    <a href="#" class="card-link">More Info</a>
+                    <a href="#" style="margin: 0" class="card-link">Add product</a>
+                    <button data-pid="{{this.id}}" type="submit" class="card-link remove-button" style="margin: 0">🗑️</button>
                 </div>
             </div>
         {{/each}}
     </div>  
 </div>
+
+<script src='/socket.io/socket.io.js'></script>
+<script src='/js/cart.js'></script>
