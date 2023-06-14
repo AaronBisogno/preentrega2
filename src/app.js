@@ -1,5 +1,5 @@
 import express from 'express';
-import handlebars from 'express-handlebars';
+import { create } from 'express-handlebars';
 import { __dirname, previousDirectory } from './utils/path.js';
 import { environment } from './utils/mongoose.js';
 import { middlewares } from './middlewares/middlewares.js';
@@ -21,7 +21,11 @@ const socketServer = new Server(httpServer);
 
 connectSockets(socketServer);
 
-
-app.engine('handlebars', handlebars.engine());
+const hbs = create({
+   runtimeOptions: {
+      allowProtoPropertiesByDefault: true
+   }
+});
+app.engine('handlebars', hbs.engine);
 app.set('views', `${previousDirectory}/views`);
 app.set('view engine', 'handlebars');

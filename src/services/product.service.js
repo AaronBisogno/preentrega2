@@ -36,4 +36,9 @@ export class ProductService {
         await ProductModel.deleteOne({_id: pid});
         return `Product ${pid} was successfully deleted!`
     }
+
+    async deleteAll(){
+        await ProductModel.deleteMany({})
+        return 'All products was successfully deleted!'
+    }
 }

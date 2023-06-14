@@ -41,14 +41,19 @@ viewsRouter.get('/products', async (req, res) => {
 });
 
 viewsRouter.get(`/carts/:cid`, async (req, res) => {
-   const { cid } = req.params;
-   const cart = await cartService.getCart(cid);
-   const { _id, products } = cart;
-   const result = [];
-   for (const item of products) {
-      result.push(item.product);
+   try{
+      const { cid } = req.params;
+      const cart = await cartService.getCart(cid);
+      const { products } = cart;
+      const result = [];
+      for (const item of products) {
+         result.push(item.product);
+      }
+      res.render('carts', { cart, result});
+   } catch {
+      throw new Error ('Cart doesnt exist!', error)
    }
-   res.render('carts', { cart, _id, result});
+   
 });
 
 viewsRouter.get('/realtimeproducts', async (req, res) => {

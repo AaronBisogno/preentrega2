@@ -8,7 +8,6 @@ export const productsRouter = express.Router();
 
 productsRouter.get('/', async (req, res) => {
    const { limit, page } = req.query;
-   const { filter } = req.body;
    const queryResult = await ProductModel.paginate(
       {},
       {limit: limit || 10, page: page || 1}
@@ -119,4 +118,23 @@ productsRouter.delete('/:pid', async (req, res) => {
             msg: 'Product not found.',
          });
       }
-});
+   }
+);
+
+productsRouter.delete('/', async (req, res) => {
+   try {
+      const product = await productService.deleteAll();
+      res.status(200).send(
+         { 
+            status: 'success',
+            msg: product
+         });
+   } catch {
+      res.status(404).send(
+         { 
+            status: 'error', 
+            msg: 'Product not found.',
+         });
+      }
+   }
+);

@@ -1,24 +1,29 @@
-<div>
-    <h1>Cart {{_id}}</h1>
+<div style="display: flex; flex-direction: column; width: 100vw; align-items: center;">
+    <h1>Cart {{cart.id}}</h1>
     <h4>Products:</h4>
-    {{#each result}}
-        <li>
-            <strong>Title:</strong>
-            {{this.title}}<br />
-            <strong>Description:</strong>
-            {{this.description}}<br />
-            <strong>Code:</strong>
-            {{this.code}}<br />
-            <strong>Price:</strong>
-            {{this.price}}<br />
-            <strong>Stock:</strong>
-            {{this.stock}}<br />
-            <strong>Category:</strong>
-            {{this.category}}<br />
-            <strong>Thumbnails:</strong>
-            {{this.thumbnails}}<br />
-            <strong>Id:</strong>
-            {{this._id}}
-        </li><br />
-    {{/each}}
+    <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px; justify-content: center">
+        {{#each result}}
+            <div class="card" style="width: 18rem;">
+                <img src="" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{this.title}}</h5>
+                    <p class="card-text">{{this.description}}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Code:</strong> {{this.code}}</li>
+                    <li class="list-group-item"><strong>Price:</strong>
+                    {{this.price}}</li>
+                    <li class="list-group-item"><strong>Category:</strong>
+                    {{this.category}}</li>
+                    <li class="list-group-item"><strong>Quantity:</strong>
+                    {{this.quantity}}</li>
+                </ul>
+                <div class="card-body">
+                    <a href="#" class="card-link">Product info</a>
+                    <a href="#" class="card-link">Delete Product</a>
+                    <a href="#" class="card-link">Add product</a>
+                </div>
+            </div>
+        {{/each}}
+    </div>  
 </div>
