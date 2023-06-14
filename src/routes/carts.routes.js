@@ -62,7 +62,7 @@ cartRouter.post('/:cid/product/:pid', async (req, res) => {
       res.status(200).send({
          status: 'success',
          msg: `Product added`,
-         data: `${productAdded}`
+         data: JSON.stringify(productAdded)
       });
    } catch {
       res.status(404).send({
@@ -91,6 +91,36 @@ cartRouter.delete('/:cid/product/:pid', async (req, res) => {
    }
 });
 
+// update product quantity from cart: true
+
+cartRouter.put('/:cid/product/:pid', async (req, res) => {
+   const { cid, pid } = req.params;
+   const { quantity } = req.body;
+   try {
+      const productUpdated = await cartService.newStock(cid, pid, quantity);
+      res.status(200).send({
+         status: 'success',
+         msg: `Product updated`,
+         data: productUpdated
+      });
+   } catch {
+      res.status(404).send({
+         status: 'error',
+         msg: 'Something went wrong!',
+      });
+   }
+})
+
+cartRouter.put('/:cid', async (req, res) => {
+   const { cid, pid } = req.params;
+   const { products } = req.body;
+   try {
+      
+   } catch {
+      
+   }
+})
+
 // Clear all products: true
 
 cartRouter.delete('/:cid', async (req, res) => {
@@ -100,7 +130,7 @@ cartRouter.delete('/:cid', async (req, res) => {
       res.status(200).send({
          status: 'success',
          msg: `Cart cleaned`,
-         data: `${cart}`
+         data: cart
       });
    } catch {
       res.status(404).send({

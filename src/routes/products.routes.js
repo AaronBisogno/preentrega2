@@ -7,9 +7,8 @@ const productService = new ProductService();
 export const productsRouter = express.Router();
 
 productsRouter.get('/', async (req, res) => {
-   const { limit } = req.query;
-   const { page } = req.query;
-
+   const { limit, page } = req.query;
+   const { filter } = req.body;
    const queryResult = await ProductModel.paginate(
       {},
       {limit: limit || 10, page: page || 1}
@@ -21,7 +20,7 @@ productsRouter.get('/', async (req, res) => {
    try{
       return res.status(200).send(
          {
-            status: "success",
+            status: "success",      
             payload: result, 
             totalPages: rest.totalPages,
             prevPage: rest.prevPage,
@@ -36,7 +35,7 @@ productsRouter.get('/', async (req, res) => {
       return res.status(404).send(
          {
             status: 'error',
-            msg: 'Products not found.' 
+            payload: 'Products not found.' 
          }
       );
    }

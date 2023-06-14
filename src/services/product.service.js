@@ -22,7 +22,10 @@ export class ProductService {
 
     async updateProduct(pid, updateData){
         try{
-            return await ProductModel.updateOne({ _id: pid}, {$set: updateData})
+            return await ProductModel.updateOne(
+                { _id: pid}, 
+                {$set: updateData}
+            );
         }
         catch{
             throw new Error('Product id doesnt exist! Please enter a valid id.')

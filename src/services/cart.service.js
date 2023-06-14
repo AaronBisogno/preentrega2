@@ -2,46 +2,89 @@ import { CartModel } from '../dao/models/carts.model.js';
 import { ProductModel } from '../dao/models/products.model.js';
 
 export class CartService {
+
    async create() {
-      return await CartModel.create({});
+      try {
+         return await CartModel.create({});
+      } catch (error) {
+         throw new Error('Error creating Cart!', error);
+      }
    }
 
    async addProductToCart(cid, pid) {
-      const cart = await CartModel.findOne({ _id: cid })
-      const product = await ProductModel.findOne({ _id: pid })
-      cart.products.push( product );
-      await cart.save();
-      return `Cart Id: ${cart._id}, Products: ${JSON.stringify(cart.products)}`;
+      try {
+         const cart = await CartModel.findOneAndUpdate(
+            { _id: cid },
+            { $push: { products: { product: pid } } },
+            { new: true }
+         )
+         return cart;
+      } catch (error) {
+         throw new Error('Error adding product to cart!', error);
+      }
    }
 
    async getCarts() {
-      const carts = await CartModel.find({}).lean();
-      return carts;
+      try {
+         const carts = await CartModel.find({}).lean();
+         return carts;
+      } catch (error) {
+         throw new Error('Error getting the Carts!', error);
+      }
    }
 
    async getCart(cid) {
-      const cart = await CartModel.findOne({ _id: cid }).populate('products.product');
-      return cart;
+      try {
+         const cart = await CartModel.findOne({ _id: cid });
+         return cart;
+      } catch (error) {
+         throw new Error('Error getting the cart!', error);
+      }
    }
 
    async removeProductFromCart(cid, pid) {
-      const cart = await CartModel.findOne({ _id: cid})
-      const index = cart.products.findIndex((i) => i._id.equals(pid))
-      if (index === -1){
-         return 'Product id doesnt exist. Please insert a valid id.'
-      } else{
-         cart.products.splice(index, 1);
-         await cart.save();
-         return `Product ${pid} was successfully removed from Cart ${cid}!`;
+      try {
+         const cart = await CartModel.findOne({ _id: cid });
+         const index = cart.products.findIndex((i) => i.product._id.equals(pid));
+         if (index === -1) {
+            return 'Product id doesnt exist. Please insert a valid id.';
+         } else {
+            cart.products.splice(index, 1);
+            await cart.save();
+            return `Product ${pid} was successfully removed from Cart ${cid}!`;
+         }
+      } catch (error) {
+         throw new Error('Error deleting the product from the cart!', error);
+      }
+   }
+
+   async quantity(cid, pid, q) {
+      try {
+         const cart = await CartModel.findOne({ _id: cid });
+         const pi = cart.products.findIndex((item) => item.product.equals(pid));
+   
+         if (productIndex !== -1) {
+            cart.products[pi].product.quantity = q;
+            await cart.save();
+            return cart.products[pi].product;
+         } else {
+            throw new Error('Product not found in the cart.');
+         }
+      } catch (error) {
+         throw new Error('Error updating the quantity of the product!', error);
       }
    }
 
    async clear(cid) {
-      await CartModel.findOneAndUpdate(
-         { _id: cid },
-         { $set: { products: [] } },
-         { new: true }
-      )
-      return `Cart ${cid} was successfully cleaned!`;
+      try {
+         await CartModel.findOneAndUpdate(
+            { _id: cid },
+            { $set: { products: [] } },
+            { new: true }
+         );
+         return `Cart ${cid} was successfully cleaned!`;
+      } catch (error) {
+         throw new Error('Error cleaning the cart!', error);
+      }
    }
 }

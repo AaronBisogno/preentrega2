@@ -1,14 +1,14 @@
-import { Schema, model } from 'mongoose';
+import mongoose from 'mongoose';
 
-const schema = new Schema(
-   {
+const cartSchema = new mongoose.Schema({
       products: { 
          type: [
-            {
+            { 
                product: {
-                  type: Schema.Types.ObjectId,
-                  ref: 'products',
-               }
+                  type: mongoose.Schema.Types.ObjectId, ref: 'products',
+                  quantity: { type: Number, min: 1, default: 1 },
+                  required: true
+               } 
             }
          ],
          default: [],   
@@ -17,12 +17,16 @@ const schema = new Schema(
    { versionKey: false }
 );
 
-schema.pre('find', function() {
-   this.populate('products.product')
-})
+cartSchema.pre('find', function() {
+   this.populate('products.product');
+});
 
-schema.pre('findOne', function() {
-   this.populate('products.product')
-})
+cartSchema.pre('findOne', function() {
+   this.populate('products.product');
+});
 
-export const CartModel = model('carts', schema);
+cartSchema.pre('findOneAndUpdate', function() {
+   this.populate('products.product');
+});
+
+export const CartModel = mongoose.model('carts', cartSchema);
