@@ -12,7 +12,7 @@
 .nav{
     display: flex;
     width: 100vw;
-    height: 5.5rem;
+    height: 10vh;
     background-color: #a111;
     align-items: center;
     justify-content: center;

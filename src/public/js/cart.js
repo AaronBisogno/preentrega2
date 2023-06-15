@@ -1,4 +1,3 @@
-
 const socket = io();
 
 
@@ -55,16 +54,22 @@ socket.on('cartUpdated', (result) => {
         cardBodyButtons.style.gap = '10px';
         cardDiv.appendChild(cardBodyButtons);
         
-        const moreInfoLink = createCardLink('#', 'More Info');
+        const moreInfoLink = createCardLink(`http://localhost:8080/products/${p._id}`, 'Product Details');
+        moreInfoLink.target = '_blank';
         cardBodyButtons.appendChild(moreInfoLink);
 
-        const addProductLink = createCardLink('#', 'Add product');
-        addProductLink.style.margin = '0'
-        cardBodyButtons.appendChild(addProductLink);
         divElement.appendChild(cardDiv);
 
         const removeButton = createRemoveButton(p._id);
-        removeButton.style.margin = '0'
+        removeButton.style.margin = '0';
+        removeButton.style.display = 'flex';
+        removeButton.style.height = '2.5rem';
+        removeButton.style.width = '4rem';
+        removeButton.style.border = '1px solid black';
+        removeButton.style.borderRadius = '0.3rem';
+        removeButton.style.justifyContent = 'center';
+        removeButton.style.alignItems= 'center';
+        removeButton.style.gap = '0.4rem';
         cardBodyButtons.appendChild(removeButton);
 
         const buttonsRemove = document.querySelectorAll('.remove-button');

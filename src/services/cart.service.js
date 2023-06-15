@@ -1,5 +1,4 @@
 import { CartModel } from '../dao/models/carts.model.js';
-import { ProductModel } from '../dao/models/products.model.js';
 
 export class CartService {
 

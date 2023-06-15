@@ -43,8 +43,8 @@ viewsRouter.get('/products', async (req, res) => {
 viewsRouter.get('/products/:pid', async (req, res) => {
    try {
       const { pid } = req.params;
-      const product = await ProductModel.getProduct(pid);
-      res.render('product', {});
+      const product = await productService.getProduct(pid);
+      res.render('product', {product});
    } catch (error) {
       throw new Error ('Product doesnt exist!', error)
    }

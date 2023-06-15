@@ -37,5 +37,9 @@ export const connectSockets = (server) => {
          }
          socket.emit('cartUpdated', result)
       });
+
+      socket.on('pushProduct', async ({cid, pid}) => {
+         await cartService.addProductToCart(cid, pid);
+      });
    });
 };

@@ -1,10 +1,16 @@
+<style>
+  a:visited, a:link{
+    color: black;
+  }
+</style>
+
 <div style="display: flex; flex-direction: column; width: 100vw; align-items: center; gap:10px; margin-top: 10px">
    <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px; justify-content: center">
         {{#each result}}
             <div class="card" style="width: 18rem;">
                 <img src="/img/default.png" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">{{this.title}}</h5>
+                    <a href="http://localhost:8080/products/{{this.id}}"><h5 class="card-title">{{this.title}}</h5></a>
                     <p class="card-text">{{this.description}}</p>
                 </div>
                 <ul class="list-group list-group-flush">
@@ -18,10 +24,14 @@
                     <li class="list-group-item"><strong>ID:</strong>
                     {{this.id}}</li>
                 </ul>
-                <div class="card-body" style="text-align: center;">
-                    <a href="#" class="card-link">More Info</a> <br>
-                    <a href="#" class="card-link">Delete Product 🗑️</a><br>
-                    <a href="#" class="card-link">Add to Cart 🛒</a>
+                <div class="card-body" style="display: flex;
+                flex-direction: column; justify-content: center; align-items: center; gap: 0.6rem;">
+                     <button type="submit" data-pid="{{product._id}}" id='addToCart' style="display: flex; height: 2.5rem; width: 9rem; border: 1px solid black; border-radius: 0.3rem; justify-content: center; align-items: center; gap: 0.4rem;">
+                        <img src="/img/cart.svg" alt="cart">
+                        <p style="margin: 0; font-weight: 500">Add to Cart</p>
+                     </button>
+                     <button data-pid="{{this.id}}" type="submit" class="card-link remove-button" style="display: flex; height: 2.5rem; width: 4rem; border: 1px solid black; border-radius: 0.3rem; justify-content: center; align-items: center; gap: 0.4rem; margin: 0;">🗑️</button>
+                     
                 </div>
             </div>
         {{/each}}
