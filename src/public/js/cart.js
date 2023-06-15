@@ -15,7 +15,7 @@ socket.on('cartUpdated', (result) => {
         const image = document.createElement('img');
         image.src = '/img/default.png';
         image.className = 'card-img-top';
-        image.alt = '...';
+        image.alt = 'Product Image';
         cardDiv.appendChild(image);
 
         const cardBody = document.createElement('div');
@@ -54,7 +54,7 @@ socket.on('cartUpdated', (result) => {
         cardBodyButtons.style.alignItems = 'center';
         cardBodyButtons.style.gap = '10px';
         cardDiv.appendChild(cardBodyButtons);
-
+        
         const moreInfoLink = createCardLink('#', 'More Info');
         cardBodyButtons.appendChild(moreInfoLink);
 
@@ -63,9 +63,18 @@ socket.on('cartUpdated', (result) => {
         cardBodyButtons.appendChild(addProductLink);
         divElement.appendChild(cardDiv);
 
-        const removeButton = createRemoveButton(p.id);
+        const removeButton = createRemoveButton(p._id);
         removeButton.style.margin = '0'
         cardBodyButtons.appendChild(removeButton);
+
+        const buttonsRemove = document.querySelectorAll('.remove-button');
+        buttonsRemove.forEach((button) => {
+            button.addEventListener('click', () => {
+                const cid = cartIdValue
+                const pid = button.getAttribute('data-pid');
+                socket.emit('removeFromCart', {cid, pid});
+            });
+        });
     });
 });
 
