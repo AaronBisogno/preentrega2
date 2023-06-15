@@ -8,7 +8,7 @@ const cartService = new CartService();
 // Get carts: true
 
 cartRouter.get('/', async (req, res) => {
-   const carts = await cartService.getCarts()
+   const carts = await cartService.getCarts();
    return res.status(200).send({
       status: 'success',
       msg: 'Carts found',
@@ -21,7 +21,7 @@ cartRouter.get('/', async (req, res) => {
 cartRouter.get('/:cid', async (req, res) => {
    const { cid } = req.params;
    try {
-      const result = await cartService.getCart(cid)
+      const result = await cartService.getCart(cid);
       res.status(200).send({
          status: 'success',
          msg: `Cart id: '${cid}' founded`,
@@ -43,7 +43,7 @@ cartRouter.post('/', async (req, res) => {
       res.status(200).send({
          status: 'success',
          msg: `Cart created`,
-         data: { cartId: result._id, products: result.products }
+         data: { cartId: result._id, products: result.products },
       });
    } catch {
       res.status(404).send({
@@ -62,7 +62,7 @@ cartRouter.post('/:cid/product/:pid', async (req, res) => {
       res.status(200).send({
          status: 'success',
          msg: `Product added`,
-         data: JSON.stringify(productAdded)
+         data: JSON.stringify(productAdded),
       });
    } catch {
       res.status(404).send({
@@ -76,14 +76,14 @@ cartRouter.post('/:cid/product/:pid', async (req, res) => {
 
 cartRouter.delete('/:cid/product/:pid', async (req, res) => {
    const { cid, pid } = req.params;
-   try{
+   try {
       const productRemoved = await cartService.removeProductFromCart(cid, pid);
       res.status(200).send({
          status: 'success',
          msg: `Product deleted`,
-         data: `${productRemoved}`
+         data: `${productRemoved}`,
       });
-   } catch{
+   } catch {
       res.status(404).send({
          status: 'error',
          msg: 'Something went wrong!',
@@ -101,7 +101,7 @@ cartRouter.put('/:cid/product/:pid', async (req, res) => {
       res.status(200).send({
          status: 'success',
          msg: `Product updated`,
-         data: productUpdated
+         data: productUpdated,
       });
    } catch {
       res.status(404).send({
@@ -109,28 +109,25 @@ cartRouter.put('/:cid/product/:pid', async (req, res) => {
          msg: 'Something went wrong!',
       });
    }
-})
+});
 
 cartRouter.put('/:cid', async (req, res) => {
    const { cid, pid } = req.params;
    const { products } = req.body;
    try {
-      
-   } catch {
-      
-   }
-})
+   } catch {}
+});
 
 // Clear all products: true
 
 cartRouter.delete('/:cid', async (req, res) => {
    const { cid } = req.params;
-   try{
+   try {
       const cart = await cartService.clear(cid);
       res.status(200).send({
          status: 'success',
          msg: `Cart cleaned`,
-         data: cart
+         data: cart,
       });
    } catch {
       res.status(404).send({
@@ -138,4 +135,4 @@ cartRouter.delete('/:cid', async (req, res) => {
          msg: 'Something went wrong!',
       });
    }
-})
+});

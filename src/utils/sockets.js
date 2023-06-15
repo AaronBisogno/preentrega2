@@ -2,14 +2,12 @@ import { ProductService } from '../services/product.service.js';
 import { CartService } from '../services/cart.service.js';
 
 export const connectSockets = (server) => {
-
    const productService = new ProductService();
    const cartService = new CartService();
 
    const msgs = [];
 
    server.on('connection', (socket) => {
-
       socket.on('new-Product', async (newProduct) => {
          await productService.createProduct(newProduct);
          const products = await productService.getProducts();
@@ -27,7 +25,7 @@ export const connectSockets = (server) => {
          socket.emit('msg_tofront', msgs);
       });
 
-      socket.on('removeFromCart', async ({cid, pid}) => {
+      socket.on('removeFromCart', async ({ cid, pid }) => {
          await cartService.removeProductFromCart(cid, pid);
          const cart = await cartService.getCart(cid);
          const { products } = cart;
@@ -35,10 +33,10 @@ export const connectSockets = (server) => {
          for (const item of products) {
             result.push(item.product);
          }
-         socket.emit('cartUpdated', result)
+         socket.emit('cartUpdated', result);
       });
 
-      socket.on('pushProduct', async ({cid, pid}) => {
+      socket.on('pushProduct', async ({ cid, pid }) => {
          await cartService.addProductToCart(cid, pid);
       });
    });

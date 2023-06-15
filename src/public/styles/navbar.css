@@ -1,137 +1,135 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
-*{
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	text-decoration: none;
-	border: none;
-	outline: none;
+* {
+   margin: 0;
+   padding: 0;
+   list-style: none;
+   text-decoration: none;
+   border: none;
+   outline: none;
 }
 
-.nav{
-    display: flex;
-    width: 100vw;
-    height: 10vh;
-    background-color: #a111;
-    align-items: center;
-    justify-content: center;
+.nav {
+   display: flex;
+   width: 100vw;
+   height: 10vh;
+   background-color: #a111;
+   align-items: center;
+   justify-content: center;
 }
-.logodiv{
-    width: 33%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.logodiv {
+   width: 33%;
+   height: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
-.searchbar-div{
-    width: 33%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-}
-
-.searchbar input{
-    width: 90%;
-    height: 100%;
-    padding: 1rem;
-    border-radius: 3rem 0rem 0rem 3rem;
-}
-.searchbar hr{
-    height: 80%;
-    width: 0;
-    border: none;
-    border-left: 1px solid black;
-}
-.searchbar img{
-    width: 4%;
-    margin-left: 13px;
-}
-.searchbar img:hover{
-    cursor: pointer;
+.searchbar-div {
+   width: 33%;
+   height: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: row;
 }
 
-.searchbar{
-    background-color: white;
-    display: flex;
-    width: 90%;
-    height: 50%;
-    border-radius: 3rem;
-    border: 0.2px solid black;
-    align-items: center;
+.searchbar input {
+   width: 90%;
+   height: 100%;
+   padding: 1rem;
+   border-radius: 3rem 0rem 0rem 3rem;
+}
+.searchbar hr {
+   height: 80%;
+   width: 0;
+   border: none;
+   border-left: 1px solid black;
+}
+.searchbar img {
+   width: 4%;
+   margin-left: 13px;
+}
+.searchbar img:hover {
+   cursor: pointer;
 }
 
-.userpanel{
-    width: 33%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-right: 3rem;
-    gap: 2rem;
+.searchbar {
+   background-color: white;
+   display: flex;
+   width: 90%;
+   height: 50%;
+   border-radius: 3rem;
+   border: 0.2px solid black;
+   align-items: center;
 }
 
-.userdiv{
-    height: 100%;
-    width: 25%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.usertext{
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding-left: 10px;
-    justify-content: center;
-}
-.usertext a:link, .usertext a:visited{
-    color: black;
-    text-decoration: none;
-}
-.usertext a:hover{
-    color: rgb(116, 116, 116);
-}
-.usertext p{
-    margin:0
-}
-.usertext h6{
-    margin:0
-}
-.cartdiv{
-    height: 100%;
-    width: 25%;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly
-}
-.carttext{
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding-left: 10px;
-    justify-content: center;
-    align-items: center;
+.userpanel {
+   width: 33%;
+   height: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+   padding-right: 3rem;
+   gap: 2rem;
 }
 
-.carttext p{
-    margin:0
+.userdiv {
+   height: 100%;
+   width: 25%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
-.carttext h5{
-    margin:0
+.usertext {
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+   padding-left: 10px;
+   justify-content: center;
 }
-.userpanel img{
-    width: 100%;
-    cursor: pointer;
+.usertext a:link,
+.usertext a:visited {
+   color: black;
+   text-decoration: none;
+}
+.usertext a:hover {
+   color: rgb(116, 116, 116);
+}
+.usertext p {
+   margin: 0;
+}
+.usertext h6 {
+   margin: 0;
+}
+.cartdiv {
+   height: 100%;
+   width: 25%;
+   display: flex;
+   align-items: center;
+   justify-content: space-evenly;
+}
+.carttext {
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+   padding-left: 10px;
+   justify-content: center;
+   align-items: center;
 }
 
-#iconpanel{
-    height: 50%;
-    width: 25%;
-    display: flex;
+.carttext p {
+   margin: 0;
+}
+.carttext h5 {
+   margin: 0;
+}
+.userpanel img {
+   width: 100%;
+   cursor: pointer;
 }
 
-
-
+#iconpanel {
+   height: 50%;
+   width: 25%;
+   display: flex;
+}

@@ -1,7 +1,6 @@
 import { CartModel } from '../dao/models/carts.model.js';
 
 export class CartService {
-
    async create() {
       try {
          return await CartModel.create({});
@@ -12,11 +11,7 @@ export class CartService {
 
    async addProductToCart(cid, pid) {
       try {
-         const cart = await CartModel.findOneAndUpdate(
-            { _id: cid },
-            { $push: { products: { product: pid } } },
-            { new: true }
-         )
+         const cart = await CartModel.findOneAndUpdate({ _id: cid }, { $push: { products: { product: pid } } }, { new: true });
          return cart;
       } catch (error) {
          throw new Error('Error adding product to cart!', error);
@@ -61,7 +56,7 @@ export class CartService {
       try {
          const cart = await CartModel.findOne({ _id: cid });
          const pi = cart.products.findIndex((item) => item.product.equals(pid));
-   
+
          if (productIndex !== -1) {
             cart.products[pi].product.quantity = q;
             await cart.save();
@@ -76,11 +71,7 @@ export class CartService {
 
    async clear(cid) {
       try {
-         await CartModel.findOneAndUpdate(
-            { _id: cid },
-            { $set: { products: [] } },
-            { new: true }
-         );
+         await CartModel.findOneAndUpdate({ _id: cid }, { $set: { products: [] } }, { new: true });
          return `Cart ${cid} was successfully cleaned!`;
       } catch (error) {
          throw new Error('Error cleaning the cart!', error);

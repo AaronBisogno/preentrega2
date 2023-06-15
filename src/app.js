@@ -23,8 +23,8 @@ connectSockets(socketServer);
 
 const hbs = create({
    runtimeOptions: {
-      allowProtoPropertiesByDefault: true
-   }
+      allowProtoPropertiesByDefault: true,
+   },
 });
 app.engine('handlebars', hbs.engine);
 app.set('views', `${previousDirectory}/views`);

@@ -1,40 +1,47 @@
-<div style="display: flex; flex-direction: column; width: 100vw; align-items: center;">
-    <h1>Cart</h1>
-    <h2 id="cartId">{{cart.id}}</h2>
-    <h4>Products:</h4>
-    <div id="myDiv" style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px; justify-content: center">
-        {{#each result}}
-            <div class="card" style="width: 18rem;">
-                <img src="/img/default.png" class="card-img-top" alt="Product Image">
-                <div class="card-body">
-                    <h5 class="card-title">{{this.title}}</h5>
-                    <p class="card-text">{{this.description}}</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <strong>Code:</strong> {{this.code}}
-                    </li>
-                    <li class="list-group-item">
-                        <strong>Price:</strong>
-                        {{this.price}}
-                    </li>
-                    <li class="list-group-item">
-                        <strong>Category:</strong>
-                        {{this.category}}
-                    </li>
-                    <li class="list-group-item">
-                        <strong>Quantity:</strong>
-                        {{this.quantity}} 
-                        <button style="width: 20px;">+</button> <button style="width: 20px;">-</button>
-                    </li>
-                </ul>
-                <div class="card-body" style="text-align: center;display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                    <a href="http://localhost:8080/products/{{this.id}}" target="_blank" class="card-link">Product Details</a>
-                    <button data-pid="{{this.id}}" type="submit" class="card-link remove-button" style="display: flex; height: 2.5rem; width: 4rem; border: 1px solid black; border-radius: 0.3rem; justify-content: center; align-items: center; gap: 0.4rem; margin: 0;">🗑️</button>
-                </div>
+<div style='display: flex; flex-direction: column; width: 100vw; align-items: center;'>
+   <h1>Cart</h1>
+   <h2 id='cartId'>{{cart.id}}</h2>
+   <h4>Products:</h4>
+   <div id='myDiv' style='display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px; justify-content: center'>
+      {{#each result}}
+         <div class='card' style='width: 18rem;'>
+            <img src='/img/default.png' class='card-img-top' alt='Product Image' />
+            <div class='card-body'>
+               <h5 class='card-title'>{{this.title}}</h5>
+               <p class='card-text'>{{this.description}}</p>
             </div>
-        {{/each}}
-    </div>  
+            <ul class='list-group list-group-flush'>
+               <li class='list-group-item'>
+                  <strong>Code:</strong>
+                  {{this.code}}
+               </li>
+               <li class='list-group-item'>
+                  <strong>Price:</strong>
+                  {{this.price}}
+               </li>
+               <li class='list-group-item'>
+                  <strong>Category:</strong>
+                  {{this.category}}
+               </li>
+               <li class='list-group-item'>
+                  <strong>Quantity:</strong>
+                  {{this.quantity}}
+                  <button style='width: 20px;'>+</button>
+                  <button style='width: 20px;'>-</button>
+               </li>
+            </ul>
+            <div class='card-body' style='text-align: center;display: flex; flex-direction: column; align-items: center; gap: 10px;'>
+               <a href='http://localhost:8080/products/{{this.id}}' target='_blank' class='card-link'>Product Details</a>
+               <button
+                  data-pid='{{this.id}}'
+                  type='submit'
+                  class='card-link remove-button'
+                  style='display: flex; height: 2.5rem; width: 4rem; border: 1px solid black; border-radius: 0.3rem; justify-content: center; align-items: center; gap: 0.4rem; margin: 0;'
+               >🗑️</button>
+            </div>
+         </div>
+      {{/each}}
+   </div>
 </div>
 
 <script src='/socket.io/socket.io.js'></script>

@@ -1,7 +1,6 @@
 const socket = io();
 
 socket.on('products', (products) => {
-
    const productList = document.getElementById('productList');
    productList.innerHTML = '';
 
