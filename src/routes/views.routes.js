@@ -17,7 +17,7 @@ viewsRouter.get('/', async (req, res) => {
       return { title: doc.title, description: doc.description, code: doc.code, price: doc.price, stock: doc.stock, category: doc.category, thumbnail: doc.thumbnail, id: doc.id };
    });
 
-   res.render('home', { result, pagination: rest });
+   res.render('home', { result, pagination: rest, title: 'Bull Market | Home' });
 });
 
 viewsRouter.get('/products', async (req, res) => {
@@ -30,16 +30,16 @@ viewsRouter.get('/products', async (req, res) => {
       return { title: doc.title, description: doc.description, code: doc.code, price: doc.price, stock: doc.stock, category: doc.category, thumbnail: doc.thumbnail, id: doc.id };
    });
 
-   res.render('products', { result, pagination: rest });
+   res.render('products', { result, pagination: rest, title: 'Bull Market | Products' });
 });
 
 viewsRouter.get('/products/:pid', async (req, res) => {
    try {
       const { pid } = req.params;
       const product = await productService.getProduct(pid);
-      res.render('product', { product });
-   } catch (error) {
-      throw new Error('Product doesnt exist!', error);
+      res.render('product', { product, title: 'Bull Market | Product' });
+   } catch {
+      res.render('404', { title: '404 Page not found' });
    }
 });
 
@@ -52,17 +52,29 @@ viewsRouter.get(`/carts/:cid`, async (req, res) => {
       for (const item of products) {
          result.push(item.product);
       }
-      res.render('carts', { cart, result, cid });
-   } catch (error) {
-      throw new Error('Cart doesnt exist!', error);
+      res.render('carts', { cart, result, cid, title: 'Bull Market | Cart' });
+   } catch {
+      res.render('404', { title: 'Bull Market | 404 Page not found' });
    }
 });
 
 viewsRouter.get('/realtimeproducts', async (req, res) => {
    const products = await productService.getProducts();
-   res.render('realTimeProducts', { products });
+   res.render('realTimeProducts', { products, title: 'Bull Market | Products' });
 });
 
 viewsRouter.get('/chat', (req, res) => {
-   return res.render('chat', {});
+   res.render('chat', { title: 'Bull Market | Chat Online' });
+});
+
+viewsRouter.get('/login', (req, res) => {
+   res.render('login', { isLogin: true, title: 'Bull Market | Log In' });
+});
+
+viewsRouter.get('/register', (req, res) => {
+   res.render('register', { isLogin: true, title: 'Bull Market | Create Account' });
+});
+
+viewsRouter.get('*', (req, res) => {
+   res.render('404', { title: 'Bull Market | Page not found' });
 });
