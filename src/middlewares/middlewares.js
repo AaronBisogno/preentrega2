@@ -4,7 +4,8 @@ import { viewsRouter } from '../routes/views.routes.js';
 import { usersRouter } from '../routes/users.routes.js';
 import { __dirname, previousDirectory } from '../utils/path.js';
 import express from 'express';
-import MongoStore from 'connect-mongo';
+import MongoStore from 'connect-mongo'; 
+import session from 'express-session'
 
 export const middlewares = (app) => {
    app.use(express.json());
