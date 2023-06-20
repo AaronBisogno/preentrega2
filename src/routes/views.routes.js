@@ -68,11 +68,15 @@ viewsRouter.get('/chat', (req, res) => {
 });
 
 viewsRouter.get('/login', (req, res) => {
-   res.render('login', { isLogin: true, title: 'Bull Market | Log In' });
+   res.render('login', { default: true, title: 'Bull Market | Log In' });
 });
 
 viewsRouter.get('/register', (req, res) => {
-   res.render('register', { isLogin: true, title: 'Bull Market | Create Account' });
+   res.render('register', { default: true, title: 'Bull Market | Create Account' });
+});
+
+viewsRouter.get('/account', (req, res) => {
+   res.render('account', { default: true, title: 'Bull Market | Create Account' });
 });
 
 viewsRouter.get('*', (req, res) => {
