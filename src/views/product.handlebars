@@ -1,36 +1,36 @@
 <style>
-   input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; } button:hover { background-color: rgb(223, 223, 223); }
+    input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; } button:hover { background-color: rgb(223, 223, 223); }
 </style>
 <div style='width: 100vw; height: 90vh; display: flex; justify-content: center; align-items: center; gap: 4rem;'>
-   <div style='width: 50%; display: flex; justify-content: flex-end; align-items: center; height: 100%'>
-      <img style='border: 1px solid black; width: 600px; height: 600px;' src='/img/default.png' alt='' />
-   </div>
-   <div
-      style='width: 50%; height: 100%; display: flex;
+    <div style='width: 50%; display: flex; justify-content: flex-end; align-items: center; height: 100%'>
+        <img style='border: 1px solid black; width: 600px; height: 600px;' src='/img/default.png' alt='' />
+    </div>
+    <div
+        style='width: 50%; height: 100%; display: flex;
     flex-direction: column; justify-content: center; gap:3rem'
-   >
-      <div>
-         <h6>{{product.code}}</h6>
-         <h4>{{product.category}}</h4>
-         <h1>{{product.title}}</h1>
-         <h6>${{product.price}}</h6>
-      </div>
-      <div style='display: flex; flex-direction: column;gap: 1.7rem'>
-         <p style='max-width: 50%; word-break: break-all;'>{{product.description}}</p>
-         <div style='display: flex; gap: 1.3rem'>
-            <input id='inputnumber' type='number' min='1' value='1' style='width: 3rem; height: 2.5rem; border: 1px solid rgb(190, 190, 190); text-align: center; border-radius: 0.3rem' />
-            <button
-               type='submit'
-               data-pid='{{product._id}}'
-               id='addToCart'
-               style='display: flex; height: 2.5rem; width: 9rem; border: 1px solid black; border-radius: 0.3rem; justify-content: center; align-items: center; gap: 0.4rem;'
-            >
-               <img src='/img/cart.svg' alt='cart' />
-               <p style='margin: 0; font-weight: 500'>Add to Cart</p>
-            </button>
-         </div>
-      </div>
-   </div>
+    >
+        <div>
+            <h6>{{product.code}}</h6>
+            <h4>{{product.category}}</h4>
+            <h1>{{product.title}}</h1>
+            <h6>${{product.price}}</h6>
+        </div>
+        <div style='display: flex; flex-direction: column;gap: 1.7rem'>
+            <p style='max-width: 50%; word-break: break-all;'>{{product.description}}</p>
+            <div style='display: flex; gap: 1.3rem'>
+                <input id='inputnumber' type='number' min='1' value='1' style='width: 3rem; height: 2.5rem; border: 1px solid rgb(190, 190, 190); text-align: center; border-radius: 0.3rem' />
+                <button
+                    type='submit'
+                    data-pid='{{product._id}}'
+                    id='addToCart'
+                    style='display: flex; height: 2.5rem; width: 9rem; border: 1px solid black; border-radius: 0.3rem; justify-content: center; align-items: center; gap: 0.4rem;'
+                >
+                    <img src='/img/cart.svg' alt='cart' />
+                    <p style='margin: 0; font-weight: 500'>Add to Cart</p>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src='/socket.io/socket.io.js'></script>

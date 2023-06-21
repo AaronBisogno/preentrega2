@@ -14,7 +14,7 @@ await environment();
 middlewares(app);
 
 const httpServer = app.listen(port, () => {
-   console.log(`Servidor escuchando en el puerto http://localhost:${port}`);
+    console.log(`Servidor escuchando en el puerto http://localhost:${port}`);
 });
 
 const socketServer = new Server(httpServer);
@@ -22,9 +22,9 @@ const socketServer = new Server(httpServer);
 connectSockets(socketServer);
 
 const hbs = create({
-   runtimeOptions: {
-      allowProtoPropertiesByDefault: true,
-   },
+    runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+    },
 });
 app.engine('handlebars', hbs.engine);
 app.set('views', `${previousDirectory}/views`);
