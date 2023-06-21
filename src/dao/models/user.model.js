@@ -6,7 +6,8 @@ const schema = new Schema(
       lastName: { type: String, required: true, max: 100 },
       email: { type: String, required: true, max: 100, unique: true },
       age: { type: Number, required: true },
-      password: { type: String, required: true }
+      password: { type: String, required: true },
+      isAdmin: { type: Boolean, required: true, default: false }
    },
    { versionKey: false }
 );

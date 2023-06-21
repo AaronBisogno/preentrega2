@@ -1,10 +1,21 @@
 import { UserModel } from '../dao/models/user.model.js';
 
 export class UserService {
-   validateUser(firstName, lastName, email) {
-      if (!firstName || !lastName || !email) {
+   validateUser(firstName, lastName, email, age, password) {
+      if (!firstName || !lastName || !email || !password || !age) {
          throw new Error('Error, please enter a valid first name, last name and email!');
       }
+   }
+
+   calculateAge(dateOfBirth) {
+      const today = new Date();
+      const birthDate = new Date(dateOfBirth);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+         age--;
+      }
+      return age;
    }
 
    async getUsers() {
@@ -12,16 +23,16 @@ export class UserService {
       return users;
    }
 
-   async createUser(firstName, lastName, email) {
-      this.validateUser(firstName, lastName, email);
-      const user = await UserModel.create({ firstName, lastName, email });
-      return user;
+   async loginUser(email, pass){
+      const user = await UserModel.findOne({email})
+      if (user && user.password === pass){
+         return 'user logged successfully!'
+      } else return 'invalid user'
    }
 
-   async updateUser(id, firstName, lastName, email) {
-      if (!id) throw new Error('Error, please enter a valid user id!');
-      this.validateUser(firstName, lastName, email);
-      const user = await UserModel.updateOne({ _id: id }, { firstName, lastName, email });
+   async createUser(firstName, lastName, email, age, password) {
+      this.validateUser(firstName, lastName, email, age, password);
+      const user = await UserModel.create({ firstName, lastName, email, age, password });
       return user;
    }
 
@@ -31,7 +42,7 @@ export class UserService {
       if (!foundUser) {
          throw new Error('User not found');
       }
-      const deletedUser = await UserModel.deleteOne({ _id: id });
+      await UserModel.deleteOne({ _id: id });
       return `User ${id} was successfully deleted!`;
    }
 }

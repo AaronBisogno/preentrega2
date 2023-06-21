@@ -1,52 +1,5 @@
-<div style='width: 100vw;'>
-   <ul style='width: 100vw; display: flex; flex-wrap: wrap; gap: 15px'>
-      {{#each result}}
-         <li>
-            <strong>Title:</strong>
-            {{this.title}}<br />
-            <strong>Description:</strong>
-            {{this.description}}<br />
-            <strong>Code:</strong>
-            {{this.code}}<br />
-            <strong>Price:</strong>
-            {{this.price}}<br />
-            <strong>Stock:</strong>
-            {{this.stock}}<br />
-            <strong>Category:</strong>
-            {{this.category}}<br />
-            <strong>Thumbnails:</strong>
-            {{this.thumbnails}}<br />
-            <strong>Id:</strong>
-            {{this.id}}
-         </li>
-         <br />
-      {{/each}}
-   </ul>
-
-   <nav aria-label='Page navigation example'>
-      <ul class='pagination justify-content-center'>
-         {{#if pagination.hasPrevPage}}
-            <li class='page-item'><a class='page-link' href='?page={{pagination.prevPage}}'>Previous</a></li>
-            <li class='page-item'><a class='page-link' href='?page={{pagination.prevPage}}'>{{pagination.prevPage}}</a></li>
-         {{else}}
-            <li class='page-item disabled'><a class='page-link' href='?page={{pagination.prevPage}}'>Previous</a></li>
-         {{/if}}
-         <li class='page-item active'><a class='page-link'>{{pagination.page}}</a></li>
-         {{#if pagination.hasNextPage}}
-            <li class='page-item'><a class='page-link' href='?page={{pagination.nextPage}}'>{{pagination.nextPage}}</a></li>
-            <li class='page-item'><a class='page-link' href='?page={{pagination.nextPage}}'>Next</a></li>
-         {{else}}
-            <li class='page-item disabled'><a class='page-link' href='#'>Next</a></li>
-         {{/if}}
-      </ul>
-   </nav>
-   Products:
-   {{pagination.totalDocs}}
-   <br />
-   Pages:
-   {{pagination.totalPages}}
-   <br />
-   page:
-   {{pagination.page}}
-   <br />
+<div style='height: 90vh; width: 100vw; display: flex; justify-content: center; flex-direction: column; align-items: center; gap: 2rem'>
+   <h4>building in process!</h4>
+   <h1>Welcome to Bull Market!</h1>
+   <a href="/products"><h5>Check our products here</h5></a>
 </div>
