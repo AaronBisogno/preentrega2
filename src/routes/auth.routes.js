@@ -10,7 +10,7 @@ authRouter.post('/login', async (req, res) => {
     const { userEmail, userPass } = req.body;
     const user = await UserModel.findOne({ email: userEmail });
     if (user && userPass === user.password) {
-        req.session.email = userEmail;
+        req.session.email = user.email;
         req.session.firstName = user.firstName;
         req.session.lastName = user.lastName;
         req.session.admin = user.isAdmin;
