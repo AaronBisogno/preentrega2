@@ -2,6 +2,7 @@ import express from 'express';
 import { ProductService } from '../services/product.service.js';
 import { ProductModel } from '../dao/models/products.model.js';
 import { CartService } from '../services/cart.service.js';
+import { isUser } from '../middlewares/auth.js';
 
 export const viewsRouter = express.Router();
 const productService = new ProductService();
@@ -65,6 +66,29 @@ viewsRouter.get('/realtimeproducts', async (req, res) => {
 
 viewsRouter.get('/chat', (req, res) => {
    res.render('chat', { title: 'Bull Market | Chat Online' });
+});
+
+viewsRouter.get('/login', (req, res) => {
+   res.render('login', { default: true, title: 'Bull Market | Log In' });
+});
+
+viewsRouter.get('/register', (req, res) => {
+   res.render('register', { default: true, title: 'Bull Market | Create Account' });
+});
+
+viewsRouter.get('/account', isUser, (req, res) => {
+   const user = { email: req.session.email, firstName: req.session.firstName, lastName: req.session.lastName, admin: req.session.admin };
+   console.log(user);
+   res.render('account', { default: true, title: 'Bull Market | Create Account', user });
+});
+
+viewsRouter.get('/logout', (req, res) => {
+   req.session.destroy((err) => {
+       if (err) {
+           return res.json({ status: 'Logout ERROR', body: err });
+       }
+       res.redirect('/login');
+   });
 });
 
 viewsRouter.get('*', (req, res) => {
