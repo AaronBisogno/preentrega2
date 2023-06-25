@@ -1,15 +1,20 @@
-import { Schema, model } from 'mongoose';
+import mongoose from 'mongoose';
 
-const schema = new Schema(
+const schema = new mongoose.Schema(
     {
         firstName: { type: String, required: true, max: 100 },
         lastName: { type: String, required: true, max: 100 },
         email: { type: String, required: true, max: 100, unique: true },
         age: { type: Number, required: true },
+        birth: { type: String, required: true },
         password: { type: String, required: true },
         isAdmin: { type: Boolean, required: true, default: false },
+        cart: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'carts',
+        },
     },
     { versionKey: false }
 );
 
-export const UserModel = model('users', schema);
+export const UserModel = mongoose.model('users', schema);

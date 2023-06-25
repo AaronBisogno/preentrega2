@@ -23,9 +23,9 @@ export class UserService {
         return users;
     }
 
-    async createUser(firstName, lastName, email, age, password) {
-        this.validateUser(firstName, lastName, email, age, password);
-        const user = await UserModel.create({ firstName, lastName, email, age, password });
+    async createUser(firstName, lastName, email, age, birth, password) {
+        this.validateUser(firstName, lastName, email, age, birth, password);
+        const user = await UserModel.create({ firstName, lastName, email, age, birth, password });
         return user;
     }
 

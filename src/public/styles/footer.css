@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    border: none;
+    outline: none;
+}
+
+.footer {
+    background-color: #a111;
+    height: 25vh;
+    display: flex;
+    width: 100vw;
+}
+.firstpart {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+.firstpart a:link {
+    color: black;
+}
+.firstpart a:visited {
+    color: black;
+}
+.firstpart a:hover {
+    opacity: 0.7;
+}
+.aboutus {
+    width: 30%;
+    padding-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.aboutus p {
+    width: 80%;
+}
+.help {
+    width: 30%;
+    padding-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.help ul {
+    margin: 0;
+    padding: 0;
+}
+.myaccount {
+    width: 30%;
+    padding-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.myaccount ul {
+    margin: 0;
+    padding: 0;
+}
+.secondpart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding-left: 3rem;
+    width: 40%;
+    gap: 2rem;
+}
+
+.ubication {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+}
+.ubication_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+}
+.ubication_text h4 {
+    margin: 0;
+}
+.ubication a:link {
+    text-decoration: none;
+    color: black;
+}
+.ubication a:visited {
+    text-decoration: none;
+    color: black;
+}
+.ubication a:hover {
+    opacity: 0.7;
+}
+.socialnetworks {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.socialnetworks h5 {
+    margin: 0;
+}
+
+.logo {
+    width: 2rem;
+}
+
+.logo:hover {
+    opacity: 0.9;
+}
+.logos {
+    display: flex;
+    gap: 0.8rem;
+}
+
+#ubicationpng {
+    mix-blend-mode: multiply;
+    background-color: black;
+    width: 5rem;
+}
+#logoface {
+    border-radius: 0.3rem;
+}

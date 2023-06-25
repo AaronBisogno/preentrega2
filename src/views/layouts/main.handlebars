@@ -6,6 +6,7 @@
         <title>{{title}}</title>
         <link rel='shortcut icon' href='/img/logo.png' type='image/x-icon' />
         <link rel='stylesheet' href='/styles/navbar.css' />
+        <link rel='stylesheet' href='/styles/footer.css' />
         <link
             href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css'
             rel='stylesheet'
@@ -37,22 +38,81 @@
                 </div>
                 <div class='userpanel'>
                     <div class='userdiv'>
-                        <a id='iconpanel' href=''><img src='/img/person-circle.svg' alt='user' /></a>
+                        <a id='iconpanel' href='http://localhost:8080/account'><img src='/img/person-circle.svg' alt='user' /></a>
                         <div class='usertext'>
-                            <h6>Account</h6>
-                            <a href='http://localhost:8080/login'><p>Sign In</p></a>
+                            <a href='http://localhost:8080/account'>
+                                <h6>Account</h6>
+                            </a>
+                            <p>{{user.firstName}}</p>
                         </div>
                     </div>
                     <div class='cartdiv'>
                         <a id='iconpanel'><img src='/img/cart.svg' alt='cart' /></a>
                         <div class='carttext'>
-                            <h5>Cart</h5>
+                            <a href='#'>
+                                <h5>Cart</h5>
+                            </a>
                             <p>$0</p>
                         </div>
+                    </div>
+                    <div>
+                        <a href='http://localhost:8080/logout'>
+                            <button id='logout-button'>Logout</button>
+                        </a>
                     </div>
                 </div>
             </nav>
             {{{body}}}
+            <footer class='footer'>
+                <div class='firstpart'>
+                    <div class='aboutus'>
+                        <h5>About us</h5>
+                        <p>Welcome to Bull Market: Your Trusted Shopping Destination. Learn More About Our Commitment to Quality, Service, and Customer Satisfaction.</p>
+                    </div>
+                    <div class='help'>
+                        <h5>Help</h5>
+                        <ul>
+                            <li><a href='#'>Problems Resolution</a></li>
+                            <li><a href='#'>Security Center</a></li>
+                            <li><a href='#'>Buy</a></li>
+                            <li><a href='#'>Sell</a></li>
+                        </ul>
+                    </div>
+                    <div class='myaccount'>
+                        <h5>My account</h5>
+                        <ul>
+                            <li><a href='#'>Resume</a></li>
+                            <li><a href='#'>Favourites</a></li>
+                            <li><a href='#'>Sell</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class='secondpart'>
+                    <div class='ubication'>
+                        <img id='ubicationpng' src='/img/ubication.png' alt='ubication' />
+                        <div class='ubication_text'>
+                            <a href='#'>
+                                <h4>Avenida Siempreviva, Calle 4</h4>
+                            </a>
+                            <a href='#'>
+                                <h4>Fideilandia, Goycoychea 352</h4>
+                            </a>
+                        </div>
+                    </div>
+                    <div class='socialnetworks'>
+                        <h5>Follow us:</h5>
+                        <div class='logos'>
+                            <a href='#'>
+                                <img class='logo' id='logoface' src='/img/facebook.png' alt='facebook-logo' />
+                            </a>
+                            <a href='#'>
+                                <img class='logo' id='logotwt' src='/img/twitter.png' alt='twitter-logo' />
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </footer>
         {{/if}}
     </body>
 </html>
