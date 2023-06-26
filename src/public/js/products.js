@@ -1,10 +1,11 @@
 const socket = io();
 
 const buttonAdd = document.querySelectorAll('.add-to-cart');
+const buttoncid = document.querySelector('.add-to-cart');
+const cid = buttoncid.getAttribute('data-cid');
 
 buttonAdd.forEach((b) => {
     b.addEventListener('click', () => {
-        const cid = '648b48a6ec611805e09b426b';
         const pid = b.getAttribute('data-pid');
         socket.emit('pushProduct', { cid, pid });
         alert('added (TODO: modal)');
@@ -102,6 +103,7 @@ socket.on('products', (products) => {
         addToCartButton.style.alignItems = 'center';
         addToCartButton.style.gap = '0.4rem';
         addToCartButton.dataset.pid = `${p._id}`;
+        addToCartButton.dataset.cid = `${p.cart}`;
 
         const cartImage = document.createElement('img');
         cartImage.src = '/img/cart.svg';
@@ -153,7 +155,7 @@ socket.on('products', (products) => {
 
         buttonsAdd.forEach((b) => {
             b.addEventListener('click', () => {
-                const cid = '648b48a6ec611805e09b426b';
+                const cid = b.getAttribute('data-cid');
                 const pid = b.getAttribute('data-pid');
                 socket.emit('pushProduct', { cid, pid });
                 alert('added (TODO: modal)');

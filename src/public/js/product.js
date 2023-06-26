@@ -10,7 +10,7 @@ input.addEventListener('change', () => {
 });
 
 button.addEventListener('click', () => {
-    const cid = '648b48a6ec611805e09b426b';
+    const cid = button.getAttribute('data-cid');
     // const newQuantity = input.value
     // input.value = 1
     const pid = button.getAttribute('data-pid');

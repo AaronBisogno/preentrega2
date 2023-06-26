@@ -36,9 +36,9 @@ viewsRouter.get('/products', isUser, async (req, res) => {
     const queryResult = await ProductModel.paginate({}, { limit: limit || 10, page: page || 1 });
     const { docs, ...rest } = queryResult;
     const result = docs.map((doc) => {
-        return { title: doc.title, description: doc.description, code: doc.code, price: doc.price, stock: doc.stock, category: doc.category, thumbnail: doc.thumbnail, id: doc.id };
+        return { title: doc.title, description: doc.description, code: doc.code, price: doc.price, stock: doc.stock, category: doc.category, thumbnail: doc.thumbnail, id: doc.id, cart };
     });
-    res.render('products', { result, pagination: rest, title: 'Bull Market | Products', user, cart });
+    res.render('products', { result, pagination: rest, title: 'Bull Market | Products', user, cart});
 });
 
 viewsRouter.get('/products/:pid', isUser, async (req, res) => {
@@ -50,7 +50,7 @@ viewsRouter.get('/products/:pid', isUser, async (req, res) => {
         const product = await productService.getProduct(pid);
         res.render('product', { product, title: 'Bull Market | Product', user, cart });
     } catch {
-        res.render('404', { title: '404 Page not found', user });
+        res.render('404', { title: '404 Page not found', user, cart });
     }
 });
 
@@ -68,7 +68,7 @@ viewsRouter.get(`/carts/:cid`, isUser, async (req, res) => {
         }
         res.render('carts', { result, cid, title: 'Bull Market | Cart', user, cart });
     } catch {
-        res.render('404', { title: 'Bull Market | 404 Page not found', user });
+        res.render('404', { title: 'Bull Market | 404 Page not found', user, cart });
     }
 });
 
