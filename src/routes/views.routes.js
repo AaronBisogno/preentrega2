@@ -32,6 +32,7 @@ viewsRouter.get('/products', isUser, async (req, res) => {
     const user = { firstName: req.session.firstName, admin: req.session.admin, email: req.session.email };
     const userCart = await UserModel.find({email: user.email});
     const cart = userCart[0].cart.toString();
+    
     const queryResult = await ProductModel.paginate({}, { limit: limit || 10, page: page || 1 });
     const { docs, ...rest } = queryResult;
     const result = docs.map((doc) => {
