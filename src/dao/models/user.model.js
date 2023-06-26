@@ -12,9 +12,22 @@ const schema = new mongoose.Schema(
         cart: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'carts',
+            required: true
         },
     },
     { versionKey: false }
 );
+
+schema.pre('find', function () {
+    this.populate('cart.product');
+});
+
+schema.pre('findOne', function () {
+    this.populate('cart.product');
+});
+
+schema.pre('findOneAndUpdate', function () {
+    this.populate('cart.product');
+});
 
 export const UserModel = mongoose.model('users', schema);

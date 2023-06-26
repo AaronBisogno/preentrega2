@@ -20,9 +20,9 @@ export const middlewares = (app) => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(express.static(`${previousDirectory}/public`));
-    app.use('/', viewsRouter);
+    app.use('/', authRouter);
     app.use('/api/products', productsRouter);
     app.use('/api/carts', cartRouter);
     app.use('/api/users', usersRouter);
-    app.use('/', authRouter);
+    app.use('/', viewsRouter);
 };

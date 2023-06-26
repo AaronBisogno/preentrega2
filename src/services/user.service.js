@@ -1,11 +1,6 @@
 import { UserModel } from '../dao/models/user.model.js';
 
 export class UserService {
-    validateUser(firstName, lastName, email, age, password) {
-        if (!firstName || !lastName || !email || !password || !age) {
-            throw new Error('Error, please enter a valid first name, last name and email!');
-        }
-    }
 
     calculateAge(dateOfBirth) {
         const today = new Date();
@@ -23,10 +18,9 @@ export class UserService {
         return users;
     }
 
-    async createUser(firstName, lastName, email, age, birth, password) {
-        this.validateUser(firstName, lastName, email, age, birth, password);
-        const user = await UserModel.create({ firstName, lastName, email, age, birth, password });
-        return user;
+    async createUser(user) {
+        const newUser = await UserModel.create(user);
+        return newUser;
     }
 
     async deleteUser(id) {
