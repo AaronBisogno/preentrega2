@@ -5,6 +5,7 @@ import { environment } from './utils/mongoose.js';
 import { middlewares } from './middlewares/middlewares.js';
 import { connectSockets } from './utils/sockets.js';
 import { Server } from 'socket.io';
+require('dotenv').config();
 
 const app = express();
 const port = 8080;
