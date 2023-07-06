@@ -1,51 +1,43 @@
 import express from 'express';
-import { UserModel } from '../dao/models/user.model.js';
-import { UserService } from '../services/user.service.js';
 import { userLogged } from '../middlewares/auth.js';
-import { CartService } from '../services/cart.service.js';
-import { createHash, isValidPassword } from '../utils/bcrypt.js';
+import passport from 'passport';
 
 export const authRouter = express.Router();
-const userService = new UserService();
-const cartService = new CartService();
 
-authRouter.post('/login', userLogged, async (req, res) => {
-    const { userEmail, userPass } = req.body;
-    const user = await UserModel.findOne({ email: userEmail });
-    if (user && isValidPassword(userPass, user.password)) {
-        req.session.email = user.email;
-        req.session.firstName = user.firstName;
-        req.session.lastName = user.lastName;
-        req.session.admin = user.isAdmin;
-        req.session.birth = user.birth;
-        req.session.age = user.age;
-        return res.redirect('/');
-    } else {
-        return res.status(401).render('loginError', { default: true, title: 'Bull Market | Log In' });
+authRouter.post(
+    '/login',
+    userLogged,
+    passport.authenticate('login', {
+        failureRedirect: '/loginError',
+    }),
+    async (req, res) => {
+        if (req.user) {
+            req.session.user = {
+                email: req.user.email,
+                firstName: req.user.firstName,
+                lastName: req.user.lastName,
+                admin: req.user.isAdmin,
+                birth: req.user.birth,
+                age: req.user.age,
+            };
+            res.redirect('/');
+        }
     }
+);
+
+authRouter.get('/loginError', userLogged, async (req, res) => {
+    return res.status(401).render('loginError', { default: true, title: 'Bull Market | Log In' });
 });
 
-authRouter.post('/register', userLogged, async (req, res) => {
-    const { firstName, lastName, userEmail, monthBirth, dayBirth, yearBirth, userPass } = req.body;
-    const password = createHash(userPass)
-    try {
-        const dateOfBirth = yearBirth + '-' + monthBirth + '-' + dayBirth;
-        const age = userService.calculateAge(dateOfBirth);
+authRouter.post(
+    '/register',
+    userLogged,
+    passport.authenticate('register', {
+        successRedirect: '/login',
+        failureRedirect: '/failRegister',
+    })
+);
 
-        const user = {
-            firstName,
-            lastName,
-            email: userEmail,
-            age,
-            birth: dateOfBirth,
-            password,
-            cart: await cartService.create()
-        }
-        
-        await userService.createUser(user);
-
-        res.status(200).redirect('/');
-    } catch (error) {
-        res.status(500).send('Error: ' + error);
-    }
+authRouter.get('/failRegister', async (req, res) => {
+    return res.redirect('/register');
 });

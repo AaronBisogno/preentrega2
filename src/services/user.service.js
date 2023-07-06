@@ -1,7 +1,6 @@
 import { UserModel } from '../dao/models/user.model.js';
 
 export class UserService {
-
     calculateAge(dateOfBirth) {
         const today = new Date();
         const birthDate = new Date(dateOfBirth);

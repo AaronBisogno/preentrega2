@@ -117,21 +117,20 @@ socket.on('products', (products) => {
         addToCartButton.appendChild(cartImage);
         addToCartButton.appendChild(addToCartText);
 
-            const removeButton = document.createElement('button');
-            removeButton.type = 'submit';
-            removeButton.className = 'card-link remove-button';
-            removeButton.style.display = 'flex';
-            removeButton.style.height = '2.5rem';
-            removeButton.style.width = '4rem';
-            removeButton.style.border = '1px solid black';
-            removeButton.style.borderRadius = '0.3rem';
-            removeButton.style.justifyContent = 'center';
-            removeButton.style.alignItems = 'center';
-            removeButton.style.gap = '0.4rem';
-            removeButton.style.margin = '0';
-            removeButton.dataset.pid = `${p._id}`;
-            removeButton.textContent = '🗑️';
-
+        const removeButton = document.createElement('button');
+        removeButton.type = 'submit';
+        removeButton.className = 'card-link remove-button';
+        removeButton.style.display = 'flex';
+        removeButton.style.height = '2.5rem';
+        removeButton.style.width = '4rem';
+        removeButton.style.border = '1px solid black';
+        removeButton.style.borderRadius = '0.3rem';
+        removeButton.style.justifyContent = 'center';
+        removeButton.style.alignItems = 'center';
+        removeButton.style.gap = '0.4rem';
+        removeButton.style.margin = '0';
+        removeButton.dataset.pid = `${p._id}`;
+        removeButton.textContent = '🗑️';
 
         buttonsDiv.appendChild(addToCartButton);
         buttonsDiv.appendChild(removeButton);

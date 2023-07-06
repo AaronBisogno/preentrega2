@@ -13,8 +13,8 @@ viewsRouter.get('/', isUser, async (req, res) => {
     let { limit } = req.query;
     let { page } = req.query;
 
-    const user = { firstName: req.session.firstName, lastName: req.session.lastName, email: req.session.email, admin: req.session.admin };
-    const userCart = await UserModel.find({email: user.email});
+    const user = { firstName: req.session.user.firstName, lastName: req.session.user.lastName, email: req.session.user.email, admin: req.session.user.admin };
+    const userCart = await UserModel.find({ email: user.email });
     const cart = userCart[0].cart.toString();
     const queryResult = await ProductModel.paginate({}, { limit: limit || 10, page: page || 1 });
     const { docs, ...rest } = queryResult;
@@ -29,21 +29,21 @@ viewsRouter.get('/products', isUser, async (req, res) => {
     let { limit } = req.query;
     let { page } = req.query;
 
-    const user = { firstName: req.session.firstName, admin: req.session.admin, email: req.session.email };
-    const userCart = await UserModel.find({email: user.email});
+    const user = { firstName: req.session.user.firstName, admin: req.session.user.admin, email: req.session.user.email };
+    const userCart = await UserModel.find({ email: user.email });
     const cart = userCart[0].cart.toString();
-    
+
     const queryResult = await ProductModel.paginate({}, { limit: limit || 10, page: page || 1 });
     const { docs, ...rest } = queryResult;
     const result = docs.map((doc) => {
         return { title: doc.title, description: doc.description, code: doc.code, price: doc.price, stock: doc.stock, category: doc.category, thumbnail: doc.thumbnail, id: doc.id, cart };
     });
-    res.render('products', { result, pagination: rest, title: 'Bull Market | Products', user, cart});
+    res.render('products', { result, pagination: rest, title: 'Bull Market | Products', user, cart });
 });
 
 viewsRouter.get('/products/:pid', isUser, async (req, res) => {
-    const user = { firstName: req.session.firstName, admin: req.session.admin, email: req.session.email };
-    const userCart = await UserModel.find({email: user.email});
+    const user = { firstName: req.session.user.firstName, admin: req.session.user.admin, email: req.session.user.email };
+    const userCart = await UserModel.find({ email: user.email });
     const cart = userCart[0].cart.toString();
     try {
         const { pid } = req.params;
@@ -55,8 +55,8 @@ viewsRouter.get('/products/:pid', isUser, async (req, res) => {
 });
 
 viewsRouter.get(`/carts/:cid`, isUser, async (req, res) => {
-    const user = { firstName: req.session.firstName, admin: req.session.admin, email: req.session.email };
-    const userCart = await UserModel.find({email: user.email});
+    const user = { firstName: req.session.user.firstName, admin: req.session.user.admin, email: req.session.user.email };
+    const userCart = await UserModel.find({ email: user.email });
     const cart = userCart[0].cart.toString();
     try {
         const { cid } = req.params;
@@ -73,8 +73,8 @@ viewsRouter.get(`/carts/:cid`, isUser, async (req, res) => {
 });
 
 viewsRouter.get('/realtimeproducts', isUser, async (req, res) => {
-    const user = { firstName: req.session.firstName, admin: req.session.admin, email: req.session.email };
-    const userCart = await UserModel.find({email: user.email});
+    const user = { firstName: req.session.user.firstName, admin: req.session.user.admin, email: req.session.user.email };
+    const userCart = await UserModel.find({ email: user.email });
     const cart = userCart[0].cart.toString();
     const products = await productService.getProducts();
     res.render('realTimeProducts', { products, title: 'Bull Market | Products', user, cart });
@@ -93,8 +93,15 @@ viewsRouter.get('/register', userLogged, (req, res) => {
 });
 
 viewsRouter.get('/account', isUser, async (req, res) => {
-    const user = { email: req.session.email, firstName: req.session.firstName, lastName: req.session.lastName, age: req.session.age, admin: req.session.admin, birth: req.session.birth };
-    const userCart = await UserModel.find({email: user.email});
+    const user = {
+        email: req.session.user.email,
+        firstName: req.session.user.firstName,
+        lastName: req.session.user.lastName,
+        age: req.session.user.age,
+        admin: req.session.user.admin,
+        birth: req.session.user.birth,
+    };
+    const userCart = await UserModel.find({ email: user.email });
     const cart = userCart[0].cart.toString();
     res.render('account', { title: 'Bull Market | Account', user, cart });
 });
@@ -109,6 +116,6 @@ viewsRouter.get('/logout', isUser, (req, res) => {
 });
 
 viewsRouter.get('*', isUser, async (req, res) => {
-    const user = { firstName: req.session.firstName, admin: req.session.admin, email: req.session.email };
+    const user = { firstName: req.session.user.firstName, admin: req.session.user.admin, email: req.session.user.email };
     res.render('404', { title: 'Bull Market | Page not found', user, cart });
 });

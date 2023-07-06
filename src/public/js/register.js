@@ -1,5 +1,5 @@
-const passwordInput = document.getElementById('userPass');
-const confirmPasswordInput = document.getElementById('userPassVerify');
+const passwordInput = document.getElementById('password');
+const confirmPasswordInput = document.getElementById('passwordVerify');
 const passwordErrorMessage = document.getElementById('password-error-message');
 const submitButton = document.querySelector('.send');
 

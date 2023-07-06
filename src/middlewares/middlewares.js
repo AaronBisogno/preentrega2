@@ -7,6 +7,8 @@ import express from 'express';
 import MongoStore from 'connect-mongo';
 import session from 'express-session';
 import { authRouter } from '../routes/auth.routes.js';
+import { iniPassport } from '../config/passport.config.js';
+import passport from 'passport';
 
 export const middlewares = (app) => {
     app.use(
@@ -17,9 +19,15 @@ export const middlewares = (app) => {
             saveUninitialized: true,
         })
     );
+
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(express.static(`${previousDirectory}/public`));
+
+    iniPassport();
+    app.use(passport.initialize());
+    app.use(passport.session());
+
     app.use('/', authRouter);
     app.use('/api/products', productsRouter);
     app.use('/api/carts', cartRouter);
