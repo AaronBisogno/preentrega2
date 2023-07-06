@@ -61,52 +61,39 @@ export function iniPassport() {
         })
     );
 
-    passport.use('github', new GitHubStrategy({
-        clientID: process.env.GITHUB_CLIENT_ID,
-        clientSecret: process.env.GITHUB_CLIENT_SECRET,
-        callbackURL: "http://localhost:8080/auth/github/callback"
-      },
-      async (accessToken, refreshToken, profile, done) => {
-        try {
-            const res = await fetch('https://api.github.com/user/emails', {
-              headers: {
-                Accept: 'application/vnd.github+json',
-                Authorization: 'Bearer ' + accessToken,
-                'X-Github-Api-Version': '2022-11-28',
-              },
-            });
-            const emails = await res.json();
-            const emailDetail = emails.find(email => email.verified === true);
-  
-            if (!emailDetail) {
-              return done(new Error('cannot get a valid email for this user'));
+    passport.use(
+        'github',
+        new GitHubStrategy(
+            {
+                clientID: process.env.GITHUB_CLIENT_ID,
+                clientSecret: process.env.GITHUB_CLIENT_SECRET,
+                callbackURL: 'http://localhost:8080/auth/github/callback',
+            },
+            async (accessToken, refreshToken, profile, done) => {
+                try {
+                    console.log(profile);
+                    const user = await UserModel.findOne({ email: profile._json.email });
+                    if (!user) {
+                        const newUser = {
+                            firstName: profile._json.name,
+                            lastName: '',
+                            email: profile._json.email,
+                            age: 23,
+                            birth: '01-01-2000',
+                            password: '',
+                            cart: await cartService.create(),
+                        };
+                        const result = await userService.create(newUser);
+                        done(null, result);
+                    } else {
+                        done(null, user);
+                    }
+                } catch (e) {
+                    return done(e);
+                }
             }
-            profile.email = emailDetail.email;
-  
-            let user = await UserModel.findOne({ email: profile.email });
-            if (!user) {
-              const newUser = {
-                email: profile.email,
-                firstName: profile._json.name || profile._json.login || 'noname',
-                lastName: 'nolast',
-                isAdmin: false,
-                password: 'nopass',
-                cart: await cartService.create()
-              };
-              let userCreated = await UserModel.create(newUser);
-              console.log('User Registration succesful');
-              return done(null, userCreated);
-            } else {
-              console.log('User already exists');
-              return done(null, user);
-            }
-          } catch (e) {
-            console.log('Error en auth github');
-            console.log(e);
-            return done(e);
-          }  
-      }
-    ));
+        )
+    );
 
     passport.serializeUser((user, done) => {
         done(null, user._id);
