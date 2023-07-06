@@ -76,14 +76,14 @@ export function iniPassport() {
                     if (!user) {
                         const newUser = {
                             firstName: profile._json.name,
-                            lastName: '',
+                            lastName: 'none',
                             email: profile._json.email,
                             age: 23,
                             birth: '01-01-2000',
-                            password: '',
+                            password: 'none',
                             cart: await cartService.create(),
                         };
-                        const result = await userService.create(newUser);
+                        const result = await userService.createUser(newUser);
                         done(null, result);
                     } else {
                         done(null, user);
