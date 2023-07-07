@@ -80,7 +80,6 @@ export function iniPassport() {
                     });
                     const emails = await res.json();
                     const emailDetail = emails.find((email) => email.verified === true);
-
                     if (!emailDetail) {
                         return done(new Error('cannot get a valid email for this user'));
                     }
