@@ -71,13 +71,26 @@ export function iniPassport() {
             },
             async (accessToken, refreshToken, profile, done) => {
                 try {
-                    console.log(profile);
-                    const user = await UserModel.findOne({ email: profile._json.email });
+                    const res = await fetch('https://api.github.com/user/emails', {
+                        headers: {
+                            Accept: 'application/vnd.github+json',
+                            Authorization: 'Bearer ' + accessToken,
+                            'X-Github-Api-Version': '2022-11-28',
+                        },
+                    });
+                    const emails = await res.json();
+                    const emailDetail = emails.find((email) => email.verified === true);
+
+                    if (!emailDetail) {
+                        return done(new Error('cannot get a valid email for this user'));
+                    }
+                    profile.email = emailDetail.email;
+                    const user = await UserModel.findOne({ email: profile.email });
                     if (!user) {
                         const newUser = {
                             firstName: profile._json.name,
                             lastName: 'none',
-                            email: profile._json.email,
+                            email: profile.email,
                             age: 23,
                             birth: '01-01-2000',
                             password: 'none',
