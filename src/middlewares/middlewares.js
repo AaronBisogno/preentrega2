@@ -9,6 +9,7 @@ import session from 'express-session';
 import { authRouter } from '../routes/auth.routes.js';
 import { iniPassport } from '../config/passport.config.js';
 import passport from 'passport';
+import { sessionRouter } from '../routes/sessions.routes.js';
 
 export const middlewares = (app) => {
     app.use(
@@ -29,8 +30,10 @@ export const middlewares = (app) => {
     app.use(passport.session());
 
     app.use('/', authRouter);
+    app.use('/', sessionRouter)
     app.use('/api/products', productsRouter);
     app.use('/api/carts', cartRouter);
     app.use('/api/users', usersRouter);
     app.use('/', viewsRouter);
+    
 };

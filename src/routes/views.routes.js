@@ -116,6 +116,16 @@ viewsRouter.get('/logout', isUser, (req, res) => {
 });
 
 viewsRouter.get('*', isUser, async (req, res) => {
-    const user = { firstName: req.session.user.firstName, admin: req.session.user.admin, email: req.session.user.email };
+    const user = {
+        email: req.session.user.email,
+        firstName: req.session.user.firstName,
+        lastName: req.session.user.lastName,
+        age: req.session.user.age,
+        admin: req.session.user.admin,
+        birth: req.session.user.birth,
+    };
+    const userCart = await UserModel.find({ email: user.email });
+    const cart = userCart[0].cart.toString();
+    
     res.render('404', { title: 'Bull Market | Page not found', user, cart });
 });

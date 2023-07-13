@@ -14,6 +14,7 @@ const schema = new mongoose.Schema(
             ref: 'carts',
             required: true,
         },
+        role: { type: String, required: true, default: 'user'}
     },
     { versionKey: false }
 );
